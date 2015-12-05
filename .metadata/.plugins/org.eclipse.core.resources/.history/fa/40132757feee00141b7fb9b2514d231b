@@ -1,0 +1,52 @@
+package spoj.most.solved.probs;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Scanner;
+
+public class Candy {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		List<Integer> ans = new ArrayList<Integer>();
+		//LinkedHashMap<Integer, int[]> map = new LinkedHashMap<Integer, int[]>();
+		while(scan.hasNext()){
+			Integer num = scan.nextInt();
+			if(num==-1) break;
+			int [] arr = new int[num];
+			for(int i=0;i<num;i++){
+				arr[i] = scan.nextInt();
+			}
+			//map.put(num, arr);
+			
+			for(int count : map.keySet()){
+				int[] arr = map.get(count);
+				int length = arr.length;
+				int total=0;
+				for(int i:arr) total+=i;
+				if(total%length !=0) {System.out.println(-1);continue;}
+				int ideal = total/length;
+				int additions=0;
+				for(int i:arr){
+					if(i>ideal) {additions += (i-ideal);}
+				}
+				ans.add(additions);
+			}
+		}
+		
+		for(int count : map.keySet()){
+			int[] arr = map.get(count);
+			int length = arr.length;
+			int total=0;
+			for(int i:arr) total+=i;
+			if(total%length !=0) {System.out.println(-1);continue;}
+			int ideal = total/length;
+			int additions=0;
+			for(int i:arr){
+				if(i>ideal) {additions += (i-ideal);}
+			}
+			System.out.println(additions);
+		}
+	}
+}

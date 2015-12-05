@@ -1,0 +1,37 @@
+package cracking.the.coding.interview;
+class Node{
+	int data;
+	Node next;
+	Node(int data){
+		this.data=data;
+	}
+}
+class Stack{
+	Node head;
+	
+	void push(int data){
+		Node n = new Node(data);
+		if(head==null) head=n;
+		else{
+			n.next=head;head=n;
+		}
+	}
+	
+	int pop(){
+		if(head==null) return 0;
+		int n = head.data;
+		head=head.next;
+		return n;
+	}
+}
+
+class Queue{
+	
+}
+public class StackQueue {
+
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -1,0 +1,58 @@
+package spoj.most.solved.probs;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Scanner;
+
+public class LastDig {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		LinkedHashMap<Integer, Integer> input = new LinkedHashMap<Integer, Integer>();
+		int test = scan.nextInt();
+		for(int i=0;i<test;i++){
+			input.put(scan.nextInt(),scan.nextInt());
+		}
+		LinkedHashMap<Integer, int[]> stdLastDig = new LinkedHashMap<Integer, int[]>();
+		int[] two = {2,4,8,16};stdLastDig.put(2, two);
+		int[] three ={3,9,1};stdLastDig.put(3,three);
+		int[] four ={4,6};stdLastDig.put(4, four);
+		int[] seven ={7,9,3,1};stdLastDig.put(7, seven);
+		int[] eight={8,4,2,6};stdLastDig.put(8,eight);
+		int[] nine = {9,1};stdLastDig.put(9,nine);
+		
+		List<Integer> directLastDig = new ArrayList<Integer>();
+		directLastDig.add(1);directLastDig.add(5);directLastDig.add(6);directLastDig.add(0);
+		for(int a: input.keySet()){
+			int b = input.get(a);
+			int lastDig = a%10;
+			if(directLastDig.contains(lastDig)) {System.out.println(lastDig);}
+			else if(b<5){
+				int power =(int) Math.pow(a, b);
+				System.out.println(power%10);
+			}
+			else{
+				int[] arr = stdLastDig.get(lastDig);
+				int size = arr.length;
+				int position = b%size;
+				System.out.println(arr[position]);
+			}
+		}
+	}
+}
+
+/*static void inefficeintImpl(){
+long time = System.currentTimeMillis();
+for(int a : map.keySet()){
+	int b = map.get(a);
+	BigInteger newA = new BigInteger(a+"");
+	BigInteger total = newA.pow(b);
+	BigInteger[] vals= total.divideAndRemainder(BigInteger.TEN);
+	BigInteger dig = vals[1];
+	System.out.println(dig);
+}
+long time2 = System.currentTimeMillis();
+System.out.println("time--"+(time2-time)/1000);
+}*/

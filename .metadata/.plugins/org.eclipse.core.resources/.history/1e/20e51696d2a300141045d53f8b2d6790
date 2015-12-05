@@ -1,0 +1,15 @@
+package sorting;
+
+public class AddBinNum {
+	int[][] values; 
+	int[] result;
+	
+	public AddBinNum(int[][] values , int no) {
+	this.values[no][4] = values;
+	}
+	
+	public static void main(String[] args) {
+		
+	}
+
+}

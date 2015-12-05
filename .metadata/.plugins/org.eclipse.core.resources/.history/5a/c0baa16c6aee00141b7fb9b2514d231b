@@ -1,0 +1,41 @@
+package spoj.most.solved.probs;
+
+import java.math.BigInteger;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+
+public class LastDig {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		LinkedHashMap<Integer, Integer> map = new LinkedHashMap<Integer, Integer>();
+		int test = scan.nextInt();
+		for(int i=0;i<test;i++){
+			map.put(scan.nextInt(),scan.nextInt());
+		}
+		int
+		int[] two = {2,4,8,16};
+		int[] three ={3,9};
+		int[] four ={4,6};
+		int[] seven ={7,9,3,1};
+		int[] eight={8,4,2,6};
+		int[] nine = {9,1};
+	}
+	
+
+}
+
+/*static void inefficeintImpl(){
+long time = System.currentTimeMillis();
+for(int a : map.keySet()){
+	int b = map.get(a);
+	BigInteger newA = new BigInteger(a+"");
+	BigInteger total = newA.pow(b);
+	BigInteger[] vals= total.divideAndRemainder(BigInteger.TEN);
+	BigInteger dig = vals[1];
+	System.out.println(dig);
+}
+long time2 = System.currentTimeMillis();
+System.out.println("time--"+(time2-time)/1000);
+}*/

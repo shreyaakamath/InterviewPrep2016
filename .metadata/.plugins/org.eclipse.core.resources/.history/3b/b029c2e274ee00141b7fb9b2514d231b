@@ -1,0 +1,25 @@
+package spoj.most.solved.probs;
+
+import java.util.*;
+public class LastDig {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int test = scan.nextInt();
+		int[] arrayA = new int[test];
+		int[] arrayB = new int[test];
+		for(int i=0;i<test;i++){
+			arrayA[i] = scan.nextInt();
+			arrayB[i] = scan.nextInt();
+		}
+		String[] stdLastDig = {"0","0","6248","1397","64","0","0","1793","6842","19"};
+		for(int i=0;i<test;i++){
+			int a = arrayA[i];
+			int b = arrayB[i];
+			if(a%10==1 || a%10==5|| a%10==6 || a%10==0)  {System.out.println(a%10);}
+			else {
+				String lastDigStr = stdLastDig[a%10];
+				System.out.println(lastDigStr.charAt(b%(lastDigStr.length())));
+			}
+			}
+	}
+}

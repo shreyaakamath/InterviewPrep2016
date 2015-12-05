@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;data.structures.BinarySearchTree.maxValueOfBinaryTree(...)&apos; to &apos;minMaxValueOfBinaryTree&apos;&#x0D;&#x0A;- Original project: &apos;Algorithms&apos;&#x0D;&#x0A;- Original element: &apos;data.structures.BinarySearchTree.maxValueOfBinaryTree(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;data.structures.BinarySearchTree.minMaxValueOfBinaryTree(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;maxValueOfBinaryTree&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;data.structures{BinarySearchTree.java[BinarySearchTree~maxValueOfBinaryTree~QNode;~I~Z" name="minMaxValueOfBinaryTree" references="true" stamp="1424097574344" version="1.0"/>
+</session>

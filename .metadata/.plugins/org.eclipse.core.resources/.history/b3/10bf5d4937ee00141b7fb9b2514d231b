@@ -1,0 +1,17 @@
+package spoj.most.solved.probs;
+
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+
+public class Candy {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		LinkedHashMap<int, int[]> map = new LinkedHashMap<int, int[]>();
+		while(scan.hasNext()){
+			int num = scan.nextInt();
+			if(num==-1) break;
+		}
+	}
+
+}

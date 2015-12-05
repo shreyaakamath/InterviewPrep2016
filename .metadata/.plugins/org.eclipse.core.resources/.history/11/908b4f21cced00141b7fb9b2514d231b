@@ -1,0 +1,37 @@
+package spoj.most.solved.probs;
+
+import java.util.*;
+
+/*
+ * http://www.spoj.com/problems/TOANDFRO/
+ */
+
+public class ToAndFro {
+
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+		while(scan.hasNext()){
+			int val = scan.nextInt();
+			String str = scan.next();
+			if(val==0) break;
+			map.put(val, str);
+		}
+		
+		for(int column : map.keySet()){
+			String str = map.get(column);
+			int row = str.length()/column;
+			int[][] arr = new int[row][column];
+			boolean opposite = false;
+			for(int i=0,j=0;i<str.length(),j<column;i++,j++){
+				char c = str.charAt(i);
+				
+						
+			}
+			
+		}
+		
+	}
+
+}

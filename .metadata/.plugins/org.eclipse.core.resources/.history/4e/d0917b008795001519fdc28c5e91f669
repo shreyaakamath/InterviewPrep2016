@@ -1,0 +1,23 @@
+package cracking.the.coding.interview;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class graphNode{
+	int val;
+	int len;
+}
+
+public class GraphBasics {
+	List<graphNode>[] adj;
+	int  n;
+	int e;
+	
+	GraphBasics(int n ,int e){
+		adj = (List<graphNode>[]) new ArrayList[n+1];
+	}
+	public static void main(String[] args) {
+
+	}
+
+}

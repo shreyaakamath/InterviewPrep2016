@@ -1,0 +1,24 @@
+package spoj.most.solved.probs;
+
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+
+public class Julka {
+
+	public static void main(String[] args) {
+	LinkedHashMap<BigInteger, Integer> map = new LinkedHashMap<Integer, Integer>();
+	Scanner scan = new Scanner(System.in);
+	for(int i=0;i<10;i++){
+		map.put(scan.nextInt(), scan.nextInt());
+	}
+	
+	for(int total : map.keySet()){
+		int more = map.get(total);
+		int natalia = (total-more)/2;
+		int kat = total-natalia;
+		System.out.println(kat);
+		System.out.println(natalia);
+	}
+	}
+
+}

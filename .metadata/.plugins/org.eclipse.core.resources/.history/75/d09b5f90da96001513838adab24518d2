@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+public class Solution {
+public static void main(String args[] ) throws Exception {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    Scanner scan = new Scanner(System.in);
+    List<Integer> preorder = new ArrayList<Integer>();
+    PriorityQueue<Integer> inorder = new PriorityQueue<Integer>();
+    int n ;
+    while(scan.hasNext()){
+    	n=scan.nextInt();
+    	preorder.add(n);
+        inorder.add(n);
+    }
+    String in="";
+    for(int k : preorder){
+        in=in+n;
+    }
+    System.out.println(in);
+}
+}

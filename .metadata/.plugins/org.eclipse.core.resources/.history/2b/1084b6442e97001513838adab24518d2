@@ -1,0 +1,51 @@
+package cracking.the.coding.interview;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+class Node{
+	String val;
+	Node left;
+	Node right;
+	Node(String val){
+		this.val=val;
+	}
+}
+
+public class PreInConstruct {
+
+	void postOrder(Node n1){
+		if(n1==null) return;
+		postOrder(n1.left);
+		postOrder(n1.right);
+		System.out.println(n1.val);
+	}
+	
+
+	public static void main(String args[] ) throws Exception { 
+	    List<Integer> pre = new ArrayList<Integer>();
+	    PriorityQueue<Integer> in = new PriorityQueue<Integer>(); 
+	    Scanner scan = new Scanner(System.in);
+	    while(scan.hasNext()){
+	    	int n = scan.nextInt();
+	    	in.add(n);
+	    	pre.add(n);
+	    }
+	    
+	    int val = pre.remove(0);
+	    Node root = new Node(val);
+	    int part=0;
+	    for(int i=0;i<in.size();i++){
+	    	if(in.get(i)==val){
+	    		part=i;
+	    		break;
+	    	}
+	    }
+	    //left is from 0 to part , right is from part+1 to n 
+	    	
+	    
+	}	
+}

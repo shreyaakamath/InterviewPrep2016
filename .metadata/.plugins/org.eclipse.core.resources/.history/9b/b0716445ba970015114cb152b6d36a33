@@ -1,0 +1,65 @@
+package cracking.the.coding.interview;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class ArraysStrings {
+	
+	static void hashTables(){
+		HashMap<Integer,String> ht = new HashMap<Integer,String>();
+		ht.put(1,"hello");
+		ht.put(2,"bye");
+		for(Map.Entry<Integer,String> entry:ht.entrySet()){
+			System.out.println(entry.getKey()+"-"+entry.getValue());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("hi");
+		System.out.println(sb.toString());
+	}
+
+	static boolean strUnique(String s){
+		/*uses extra DS*/
+		Set<Character> set = new HashSet<Character>();
+		for(int i=0;i<s.length();i++){
+			if(set.contains(s.charAt(i))) return false;
+			else set.add(s.charAt(i));
+		}
+		return true;
+		/*w/o extra DS*/
+	}
+	
+	static void strReverse(char[] s){
+		/*lots of extra space
+		int n = s.length();
+		char [] str2 = new char[n];
+		for(int i=n-1;i>=0;i--){
+			str2[i]= s.charAt(n-i-1);
+		}
+		StringBuilder str3 = new StringBuilder();
+		for(int i=0;i<n;i++)
+			str3.append(str2[i]);
+		System.out.println(str3.toString());*/
+		
+		
+		/*in-place reverse*/
+		int n = size(s);
+		for(int i=0;i<n;i++){
+			if(n%2!=0){
+				if(i==n/2) continue;
+			}
+			char a = s.charAt(i);
+			char b = s.charAt(n-i-1);
+			s.charAt(i) = b;
+			s.charAt(n-i-1) = a;
+		}
+		System.out.println(s);
+	}
+	public static void main(String[] args) {
+		//hashTables();
+		strReverse("hello");
+	}
+
+}

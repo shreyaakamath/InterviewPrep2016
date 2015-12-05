@@ -1,0 +1,36 @@
+package spoj.most.solved.probs;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Scanner;
+
+public class Byteland {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		List<Long> input = new ArrayList<Long>();
+		while(scan.hasNext()) {long n = scan.nextLong();if(n==-1) break;input.add(n);}
+		LinkedHashMap<Long, Long> memory = new LinkedHashMap<Long, Long>();
+		for(long i : input) {
+			System.out.println(getTotal(i,memory));
+		}
+		}
+	
+	static long getTotal(long n,LinkedHashMap<Long, Long> memory){
+		int total;
+		if(n<12) return n;
+		else {
+			int total2,total3,total4;
+			total2 = memory.containsKey(n/2) == true ? memory.get(n/2) : getTotal(n/2, memory);
+			/*if(memory[n/2]>0) total2=memory[n/2];
+			else total2 = getTotal(n/2, memory);
+			if(memory[n/3]>0) total3=memory[n/3];
+			else total3 = getTotal(n/3, memory);
+			if(memory[n/4]>0) total4=memory[n/4];
+			else total4 = getTotal(n/4, memory);
+			total = Math.max(n , total2+total3+total4);*/
+		}
+		return total;
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;length&apos; in &apos;warmup.challenges.CutTheSticks&apos; to &apos;arr&apos;&#x0D;&#x0A;- Original project: &apos;HackerRankChallenges&apos;&#x0D;&#x0A;- Original element: &apos;warmup.challenges.CutTheSticks.length&apos;&#x0D;&#x0A;- Renamed element: &apos;warmup.challenges.CutTheSticks.arr&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;length&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;warmup.challenges{CutTheSticks.java[CutTheSticks^length" name="arr" references="true" setter="false" stamp="1427797055849" textual="false" version="1.0"/>
+</session>

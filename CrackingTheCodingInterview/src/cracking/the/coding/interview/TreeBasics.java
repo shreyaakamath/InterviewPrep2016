@@ -1,0 +1,352 @@
+/*
+ * Tree Basics :
+ * 1)Inorder Traversal(L N R)
+ * 2)Preorder  Traversal(N L R)
+ * 3)Postorder Traversal (L R N)
+ * 
+ * Prob:
+ 
+4.1) Implement a function to check if a tree is balanced. For the purposes of this question,
+a balanced tree is defined to be a tree such that no two leaf nodes differ in distance
+from the root by more than one.
+ 
+4.3 )Given a sorted (increasing order) array, write an algorithm to create a binary tree with
+minimal height.
+
+4.4) Given a binary search tree, design an algorithm which creates a linked list of all the
+nodes at each depth (i.e., if you have a tree with depth D, you’ll have D linked lists).
+
+4.5) Write an algorithm to find the ‘next’ node (i.e., in-order successor) of a given node in
+a binary search tree where each node has a link to its parent.
+
+4.6) Design an algorithm and write code to find the first common ancestor of two nodes
+in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not
+necessarily a binary search tree.
+
+4.7) You have two very large binary trees: T1, with millions of nodes, and T2, with hun-
+dreds of nodes. Create an algorithm to decide if T2 is a subtree of T1.
+ */
+package cracking.the.coding.interview;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+
+class TreeNode{
+	int data;
+	TreeNode left;
+	TreeNode right;
+	TreeNode parent;
+	
+	TreeNode(int data,TreeNode left,TreeNode right){
+		this.data=data;
+		this.left=left;
+		this.right=right;
+	}
+}
+public class TreeBasics {
+	TreeNode root;
+	
+	void create(){
+		
+		/*BST
+		root=new TreeNode(20,null,null);
+		root.right = new TreeNode(22,null,null);
+		root.left = new TreeNode(8,null,null);
+		root.left.left= new TreeNode(4,null,null);
+		root.right.left=new TreeNode(21,null,null);
+		root.right.right=new TreeNode(24,null,null);*/
+		
+		root=new TreeNode(10,null,null);
+		root.right = new TreeNode(3,null,null);
+		root.left = new TreeNode(5,null,null);
+		root.left.left= new TreeNode(2,null,null);
+		root.right.left=new TreeNode(4,null,null);
+		root.right.right=new TreeNode(2,null,null);
+	}
+	
+	void inorder(TreeNode n){
+		if(n==null) return;
+		inorder(n.left);
+		System.out.println(n.data);
+		inorder(n.right);
+	}
+	
+	void preorder(TreeNode n){
+		if(n==null) return;
+		System.out.println(n.data);
+		inorder(n.left);
+		inorder(n.right);
+	}
+	
+	void postorder(TreeNode n){
+		if(n==null) return;
+		inorder(n.left);
+		inorder(n.right);
+		System.out.println(n.data);
+	}
+	
+	/*BST insert*/
+	void insert(TreeNode n1,int val){
+		if(n1==null){n1=new TreeNode(val,null,null);}
+		if(val<=n1.data){
+			if(n1.left==null){n1.left=new TreeNode(val,null,null);return;}
+			insert(n1.left,val);
+		}else{
+			if(n1.right==null){n1.right=new TreeNode(val,null,null);return;}
+			insert(n1.right,val);
+		}
+	}
+	
+	boolean balanced(){
+		PriorityQueue<Integer> depth = new PriorityQueue<Integer>();
+		recurBalanced(depth,root,0);
+		int	 size=depth.size();
+		Integer[] arr=depth.toArray(new Integer[0]);
+		if(arr[size-1]-arr[0]>1) return false;
+		else return true;
+	}
+	
+	boolean isLeaf(TreeNode n1){
+		if(n1==null) return false;
+		if(n1.right==null && n1.left==null) return true;
+		else return false;
+	}
+	
+	void recurBalanced(PriorityQueue<Integer> depth, TreeNode n1,int val){
+		if(n1==null) return;
+		if(isLeaf(n1)==true) {depth.add(val);return;}
+		else {
+			int tmp=val++;
+			recurBalanced(depth,n1.right,++val);
+			recurBalanced(depth,n1.left,++val);
+		}
+	}
+	
+	void arrToBin(int[] arr){
+	TreeNode n1 = new TreeNode(arr[0],null,null);
+	arrRecur(n1,arr,0);
+	root=n1;
+	//inorder(n1);
+	}
+	
+	void arrRecur(TreeNode n1,int[] arr, int index){
+		
+		int l=index*2+1;
+		int r=index*2+2;
+		if(l<arr.length){
+			n1.left=new TreeNode(arr[index*2+1],null,null);
+			arrRecur(n1.left,arr,l);
+		}
+		if(r<arr.length){
+			n1.right=new TreeNode(arr[index*2+2],null,null);
+			arrRecur(n1.right,arr,r);
+		}
+		return;
+	}
+	
+	void createLL(int depth){
+		List<TreeNode>[] ll = (List<TreeNode>[])new ArrayList[depth+1];
+		addToLL(ll,0,root);
+		for(int i=0;i<=depth;i++){
+			for(TreeNode n:ll[i]) System.out.print(n.data+",");
+		}
+	}
+	
+	void addToLL(List<TreeNode>[] ll , int depth, TreeNode n1){
+		if(ll[depth] ==null){ ll[depth] = new ArrayList<TreeNode>();}
+		ll[depth].add(n1);
+		if(isLeaf(n1)==true) return;
+		else{
+			if(n1.right!=null) addToLL(ll,depth+1,n1.right);
+			if(n1.left!=null) addToLL(ll,depth+1,n1.left);
+		}
+	}
+	
+	int max(int a,int b,int c){
+		int max1 = a>b?a:b;
+		int max2 = max1>c?max1:c;
+		return max2;
+	}
+	int height(TreeNode n1,int ht){
+		if(n1==null) return 0;
+		int left=0,right=0;
+		if(n1.left!=null) left=height(n1.left,ht+1);
+		if(n1.right!=null) right = height(n1.right,ht+1);
+		return max(left,right,ht);
+	}
+	
+	TreeNode smallest(TreeNode n ){
+		if(n.left==null) return n;
+		else {
+			return smallest(n.left);
+		}
+	}	
+	void successor(TreeNode n1){
+		if(n1.right==null){
+			TreeNode child =n1;
+			TreeNode tmp=n1.parent;
+			while(tmp!=null){
+				if(tmp.left==child) break;
+				else {
+					tmp=tmp.parent;
+					child=tmp;
+				}
+			}
+			if(tmp!=null) System.out.println(tmp.data);
+			else System.out.println("null");
+		}
+		else System.out.println(smallest(n1.right).data);
+	}
+	
+	TreeNode commonAncBst(TreeNode n1 , int val1 , int val2){
+		int val = n1.data;
+		if(val1 ==val || val2==val){
+			//one of the vals is equal to this node
+			return n1;
+		}else if ((val1<val && val2>val)||(val1>val && val2<val)){
+			//one smaller , one larger val
+			return n1;
+		}else{
+			//both either smaller or greater
+			if(val1<val && val2<val){
+				//both smaller 
+				return commonAncBst(n1.left,val1,val2);
+			}else{
+				//both greater
+				return commonAncBst(n1.right,val1,val2);
+			}
+		}
+	}
+	/*common ancestor of two nodes of a normal binary tree*/
+	TreeNode commonAncBinTree(TreeNode n1 , int val1, int val2){
+		if(n1==null) return null;
+		int val = n1.data;
+		if(val1 ==val || val2==val){return n1;}
+		
+		TreeNode left = commonAncBinTree(n1.left,val1,val2);
+		TreeNode right = commonAncBinTree(n1.right , val1, val2);
+		
+		if(left!=null && right!=null) return n1;
+		return left!=null?left:right;
+		
+	}
+	void inorderToList(TreeNode n1 , List<Integer> list){
+		if(n1==null) return;
+		inorderToList(n1.left,list);
+		list.add(n1.data);
+		inorderToList(n1.right,list);
+	}
+	
+	//o(n)
+	TreeNode findSub(TreeNode n1 , TreeNode sub){
+		/*if(n1==null) return null;
+		if(n1.data == sub.data) return n1;
+		if(n1.right!=null) return findSub(n1.right,sub);
+		if(n1.left!=null) return findSub(n1.left,sub);*/
+		
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		stack.addFirst(n1);
+		TreeNode tmp = null;
+		while(!stack.isEmpty()){
+			tmp = stack.removeFirst();
+			if(tmp==null) continue;
+			if(tmp.data==sub.data) break;
+			stack.addFirst(tmp.right);
+			stack.addFirst(tmp.left);
+		}
+		return tmp;
+	}
+	//need to check inorder list and either post/pre order TODO 
+	void subTree(TreeNode main , TreeNode sub){
+		List<Integer> l1 = new ArrayList<Integer>();
+		List<Integer> l2 = new ArrayList<Integer>();
+		TreeNode found = findSub(main,sub);
+		if(found!=null){
+			inorderToList(found,l1);
+			inorderToList(sub,l2);
+			int i;
+			for(i=0;i<l2.size();i++){
+				if(l1.get(i)!=l2.get(i)) break;
+			}
+			if(i==(l2.size())) System.out.println("Yes subtree");
+			else System.out.println("Not subtree");
+		}else{
+			System.out.println("Not a subtree");
+		}
+	}
+
+	
+	/*Root to leaf path sums up to val . store the paths and display.*/
+	void rootToLeafPath(TreeNode n1 , int sum , int val,List<Integer> pathSoFar , List<List<Integer>> allPaths ){
+		if(n1==null) return;
+		pathSoFar.add(n1.data);
+		if(n1.data+ sum == val){
+			System.out.println("found at node "+n1.data);
+			List<Integer> newList = new ArrayList<Integer>(pathSoFar);
+			allPaths.add(newList);
+		}
+		rootToLeafPath(n1.right,sum+n1.data,val,pathSoFar,allPaths);
+		if(n1.right!=null)
+		pathSoFar.remove(new Integer(n1.right.data));
+		rootToLeafPath(n1.left,sum+n1.data,val,pathSoFar,allPaths);
+		if(n1.left!=null)
+		pathSoFar.remove(new Integer(n1.left.data));
+	}
+	
+	/*if node to node sums up to val, not necessarily starting from root. complexity : n2? */
+	void nodeToNodePath(TreeNode n1,int val){
+		if(n1==null) return;
+		List<Integer> l1=new ArrayList<Integer>();
+		List<List<Integer>> l2 = new ArrayList<List<Integer>>();
+		rootToLeafPath(n1,0,5,l1,l2);
+		if(l2.size()>0) {
+			for(List<Integer> lt1 : l2){
+				for(int a: lt1){
+					System.out.print(a+",");
+				}
+				System.out.println();
+			}
+		}
+		nodeToNodePath(n1.right,val);
+		nodeToNodePath(n1.left,val);
+	}
+	
+	static void testOrdering(){
+		TreeBasics t1= new TreeBasics();
+		t1.create();
+		t1.inorder(t1.root);
+		System.out.println();
+		t1.preorder(t1.root);
+		System.out.println();
+		t1.postorder(t1.root);
+	}
+	
+	public static void main(String[] args) {
+		TreeBasics t1= new TreeBasics();
+		t1.create();
+		List<Integer> l1=new ArrayList<Integer>();
+		List<List<Integer>> l2 = new ArrayList<List<Integer>>();
+		t1.nodeToNodePath(t1.root,17);
+		/*for(List<Integer> lt1 : l2){
+			for(int a: lt1){
+				System.out.print(a+",");
+			}
+			System.out.println();
+		}*/
+		//t1.rootToLeafPath(17);
+		/*TreeNode sub = new TreeNode(22,new TreeNode(21,null,null),new TreeNode(25,null,null));
+		t1.subTree(t1.root,sub);*/
+		
+		/*int[] arr = {1,2,3,4,5,6};
+		t1.arrToBin(arr);
+		int ht=t1.height(t1.root,0);
+		System.out.println(ht);
+		t1.createLL(ht);*/
+		
+		/*System.out.println(t1.commonAncBst(t1.root,22,24).data);
+		System.out.println(t1.commonAncBinTree(t1.root,4,24).data);*/
+	}
+
+}

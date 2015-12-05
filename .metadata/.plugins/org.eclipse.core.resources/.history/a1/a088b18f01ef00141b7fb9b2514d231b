@@ -1,0 +1,25 @@
+package spoj.most.solved.probs;
+
+import java.util.*;
+
+public class Candy3 {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int test = scan.nextInt();
+		List<String> ans = new ArrayList<String>();
+		for(int i=0;i<test;i++){
+			scan.nextLine();
+			BigInteger num = scan.nextBigInteger();
+			int[] val = new int[num];
+			int total =0;
+			for(int j=0;j<num;j++){ val[j] = scan.nextInt();total+=val[j];}
+			if(total%num ==0) ans.add("YES");
+			else ans.add("NO");
+		}
+		for(String str : ans)
+			System.out.println(str);
+		
+	}
+
+}

@@ -1,0 +1,27 @@
+package cracking.the.coding.interview;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class graphNode{
+	int val;
+	int len;
+}
+
+public class GraphBasics {
+	List<graphNode>[] adj;
+	int  n;
+	int e;
+	
+	GraphBasics(int n ,int e,File file){
+		adj = (List<graphNode>[]) new ArrayList[n+1];
+		Scanner scan = new Scanner(file);
+	}
+	
+	public static void main(String[] args) {
+
+	}
+
+}

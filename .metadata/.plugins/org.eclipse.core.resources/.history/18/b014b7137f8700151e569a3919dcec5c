@@ -1,0 +1,23 @@
+/**
+ * http://www.geeksforgeeks.org/diameter-of-a-binary-tree/
+ * Complexity:
+ * currently O(n). merge height calculation with diameter calculation -> O(n) 
+ */
+package binary.tree.operations;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class TreePathSum {
+	TreeNode root;
+	
+	
+	public static void  main(String args[]){
+		TreePathSum n1 = new TreePathSum();
+		n1.root=CommonOperations.create();
+		CommonOperations.print(n1.root);
+	}
+	
+}
+
+

@@ -1,0 +1,25 @@
+package sorting;
+
+/*
+ * Consider the problem of adding two n-bit binary integers, stored in two n-element
+arrays A and B. The sum of the two integers should be stored in binary form in an .n C 1/-element array C.
+ */
+public class AddBinNum {
+	int[][] values; 
+	int[] result;
+	
+	public AddBinNum(int[][] values) {
+	this.values = values;
+	}
+	
+	public void addNumbers(){
+		int totalDigits = values[0].length;
+		for(int i =0; i <totalDigits; i++){
+		}
+	
+	}
+	public static void main(String[] args) {
+		
+	}
+
+}

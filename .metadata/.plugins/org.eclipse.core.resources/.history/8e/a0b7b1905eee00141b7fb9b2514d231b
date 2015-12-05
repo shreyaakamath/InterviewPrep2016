@@ -1,0 +1,27 @@
+package spoj.most.solved.probs;
+
+import java.math.BigInteger;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+
+public class Julka {
+
+	public static void main(String[] args) {
+	LinkedHashMap<BigInteger, BigInteger> map = new LinkedHashMap<BigInteger, BigInteger>();
+	Scanner scan = new Scanner(System.in);
+	for(int i=0;i<10;i++){
+		BigInteger n1 = new BigInteger(scan.nextInt()+"");
+		BigInteger n2 = new BigInteger(scan.nextInt()+"");
+		map.put(n1,n2);
+	}
+	
+	for(BigInteger total : map.keySet()){
+		BigInteger more = map.get(total);
+		BigInteger natalia = (total.subtract(more)).divide(new BigInteger(2+"")); 
+		BigInteger kat = total.subtract(natalia);
+		System.out.println(kat);
+		System.out.println(natalia);
+	}
+	}
+
+}

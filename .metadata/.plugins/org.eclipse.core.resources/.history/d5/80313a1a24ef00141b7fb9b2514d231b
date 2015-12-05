@@ -1,0 +1,26 @@
+package spoj.most.solved.probs;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Byteland {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		List<Long> ans = new ArrayList<Long>();
+		List<Long> input = new ArrayList<Long>();
+		
+		while(scan.hasNext()){
+			input.add(scan.nextLong());
+			long total1 = scan.nextLong();
+			if(total1==-1) break;
+			long total2 = (total1/2)+(total1/3)+(total1/4);
+			if(total2>total1) ans.add(total2);
+			else ans.add(total1);
+		}
+		for(long i : ans) System.out.println(i);
+	}
+	
+	
+}

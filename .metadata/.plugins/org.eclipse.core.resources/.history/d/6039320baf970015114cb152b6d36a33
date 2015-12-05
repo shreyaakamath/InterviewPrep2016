@@ -1,0 +1,22 @@
+package cracking.the.coding.interview;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ArraysStrings {
+	
+	void hashTables(){
+		HashMap<Integer,String> ht = new HashMap<Integer,String>();
+		ht.put(1,"hello");
+		ht.put(2,"bye");
+		for(Map.Entry<Integer,String> entry:ht.entrySet()){
+			System.out.println(ht.getKey()+"-"+ht.getValue());
+		}
+		
+	}
+
+	public static void main(String[] args) {
+
+	}
+
+}

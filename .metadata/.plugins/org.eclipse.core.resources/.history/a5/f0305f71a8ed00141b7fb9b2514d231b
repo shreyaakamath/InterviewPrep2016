@@ -1,0 +1,15 @@
+package spoj.most.solved.probs;
+
+import java.util.Stack;
+
+public class TransformExpression {
+
+
+	public static void main(String[] args) {
+		Stack<Character>  operatorStack = new Stack<Character>();
+		Stack<Character>  operandStack = new Stack<Character>();
+		
+		
+	}
+
+}

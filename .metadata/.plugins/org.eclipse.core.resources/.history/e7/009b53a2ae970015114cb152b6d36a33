@@ -1,0 +1,13 @@
+package cracking.the.coding.interview;
+
+public class ArraysStrings {
+	
+	void hashTables(){
+		HashMap<Integer,String> ht = new HashMap<Integer,String>();
+	}
+
+	public static void main(String[] args) {
+
+	}
+
+}

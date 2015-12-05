@@ -1,0 +1,20 @@
+LinkedList
+
+TODO
+http://www.geeksforgeeks.org/flatten-a-linked-list-with-next-and-child-pointers/
+http://www.geeksforgeeks.org/find-a-triplet-from-three-linked-lists-with-sum-equal-to-a-given-number/
+
+
+Array/LL/Sort
+-----------------
+Array QS -> DONE
+LL MS in place ->  Done
+
+LL QS -> 
+DLL QS -> 
+Array MS -> 
+Circular Queue-> 
+
+Notes:
+Array QS-> array supports random access. array has locality of reference.
+LL MS-> doesnt need random access.random access LL is expensive.LL doesnt have locality of reference.

@@ -1,0 +1,28 @@
+/**
+ * http://www.geeksforgeeks.org/diameter-of-a-binary-tree/
+ * Complexity:
+ * currently O(n). merge height calculation with diameter calculation -> O(n) 
+ */
+package binary.tree.operations;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class TreePathSum {
+	TreeNode root;
+	boolean isLeaf(TreeNode n1){
+		return n1.left==null && n1.right==null;
+	}
+	boolean func(int sum,int path,TreeNode n1){
+		if(n1.val+path > sum) return false;
+		if(n1.val+path ==sum && isLeaf(n1)) return true;
+	}
+	public static void  main(String args[]){
+		TreePathSum n1 = new TreePathSum();
+		n1.root=CommonOperations.create();
+		CommonOperations.print(n1.root);
+	}
+	
+}
+
+

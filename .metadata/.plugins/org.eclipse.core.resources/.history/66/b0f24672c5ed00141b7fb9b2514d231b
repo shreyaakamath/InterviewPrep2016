@@ -1,0 +1,25 @@
+package spoj.most.solved.probs;
+
+import java.util.Scanner;
+
+public class SquareCount {
+
+	public static void main(String[] args) {
+		int[] num = new int[100];
+		Scanner scan = new Scanner(System.in);
+		int val,i=0;
+		while(scan.hasNext()){
+			val = scan.nextInt();
+			if(val==0) break;
+			num[i++] = val;
+		}
+		
+		for(int j=0;j<i;j++){
+			System.out.println(getSumSquares(num[j]));
+		}
+	}
+
+	static void getSumSquares(int n){
+		
+	}
+}

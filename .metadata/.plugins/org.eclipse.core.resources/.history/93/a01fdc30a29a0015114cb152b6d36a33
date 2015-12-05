@@ -1,0 +1,46 @@
+package binary.tree.operations;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class PreorderConstruct {
+	
+	static void construct(TreeNode root , List<Integer> inorder ,int start , int end, List<Integer> preorder){
+		int node = preorder.get(0);
+		root = new TreeNode(node);
+		int mid=0;
+		boolean leafLeft=false;
+		boolean leafRight=false;
+		for(int i=start;i<end;i++)
+			if(inorder.get(i)==node){mid=i;break;}
+		if(mid-start == 1){
+			leafLeft=true;
+			int left=preorder.get(mid-1);
+			root.left=new TreeNode(left);
+			preorder.remove(left);
+		}
+		if(end-mid==1){
+			leafRight=true;
+			int right = preorder.get(mid+1);
+			root.right=new TreeNode(right);
+			preorder.remove(right);
+		}
+		if(!leafLeft)  construct(root.left,inorder,start,mid,preorder);
+		if(!leafRight) construct(root.right,inorder,mid+1,end,preorder);
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		List<Integer> preorder= new ArrayList<Integer>();
+		while(scan.hasNext()){
+			preorder.add(scan.nextInt());
+		}
+		List<Integer> inorder = new ArrayList<Integer>(preorder);
+		Collections.sort(inorder);
+		TreeNode root;
+		construct(root,inorder,0,inorder.size(),preorder);		
+	}
+
+}

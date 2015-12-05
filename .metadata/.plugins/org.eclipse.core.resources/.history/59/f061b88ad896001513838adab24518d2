@@ -1,0 +1,54 @@
+package cracking.the.coding.interview;
+import java.util.LinkedList;
+import java.util.Scanner;
+public class Solution {
+public static void main(String args[] ) throws Exception {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    Scanner scan = new Scanner(System.in);
+    String txt= scan.nextLine();
+    LinkedList<Character> list = new LinkedList<Character>();
+    boolean flag=true;
+    int open=0;
+    int closed=0;
+    for(int i=0;i<txt.length();i++){
+    	char n = txt.charAt(i);
+    	if(n=='<' || n=='(' || n=='{'|| n=='['){
+    		open++;
+    		list.addFirst(n);
+    	}else{
+    		closed++;
+    		char removed= list.removeFirst();
+    		switch(n){
+    		case '>':
+    			if(removed=='<') flag = true;
+    			else flag =false;
+    			break;
+    		case '}':
+    			if(removed=='{')flag = true;
+    			else flag =false;
+    			break;
+    		case ')':
+    			if(removed=='(')flag = true;
+    			else flag =false;
+        			break;
+    		case ']':
+    			if(removed=='[')flag = true;
+    			else flag =false;
+    			break;
+    		default:
+    			flag=false;
+    		}
+    	}
+    	if(flag==false){
+			break;
+		}
+    }
+    if(open!=closed){
+    	System.out.println("false");
+    }else if(flag==false){
+		System.out.println("false");
+	}else{
+		System.out.println("true");
+	}
+}
+}

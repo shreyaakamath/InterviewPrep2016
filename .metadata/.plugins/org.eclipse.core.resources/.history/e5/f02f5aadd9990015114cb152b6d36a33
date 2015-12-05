@@ -1,0 +1,15 @@
+package random.trial.stuff;
+
+import java.util.Collections;
+import java.util.PriorityQueue;
+
+public class JavaDSPractice {
+
+	public static void main(String[] args) {
+		//normal min pririoty queue 
+		PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+		//max priority queue
+		PriorityQueue<Integer> pq = new PriorityQueue<Integer>(10,Collections.reverseOrder());
+	}
+
+}

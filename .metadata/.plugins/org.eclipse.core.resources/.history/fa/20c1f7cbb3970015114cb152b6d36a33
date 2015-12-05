@@ -1,0 +1,36 @@
+package cracking.the.coding.interview;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class ArraysStrings {
+	
+	static void hashTables(){
+		HashMap<Integer,String> ht = new HashMap<Integer,String>();
+		ht.put(1,"hello");
+		ht.put(2,"bye");
+		for(Map.Entry<Integer,String> entry:ht.entrySet()){
+			System.out.println(entry.getKey()+"-"+entry.getValue());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("hi");
+		System.out.println(sb.toString());
+	}
+
+	static boolean strUniqueExtraDS(String s){
+		//HashMap<Character , Integer> ht = new HashMap<Character,Integer>();
+		Set<Character> s = new HashSet<Character>();
+		for(int i=0;i<s.length();i++){
+			Character c = s.charAt(i);
+			if(ht.get(c)==null){
+				ht.put(c,1);
+			}
+		}
+	}
+	public static void main(String[] args) {
+		hashTables();
+	}
+
+}

@@ -1,0 +1,51 @@
+package cracking.the.coding.interview;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class graphNode{
+	int val;
+	int len;
+	
+	graphNode(int val,int len){
+		this.val=val;
+		this.len=len;
+	}
+}
+
+public class GraphBasics {
+	List<graphNode>[] adj;
+	int  n;
+	int e;
+	
+	GraphBasics(File file){
+		Scanner scan =null;
+		try{
+			scan = new Scanner(file);
+		}catch(FileNotFoundException err){
+			System.err.println(err.getMessage());
+		}
+		if(scan.hasNext()){this.n=scan.nextInt();}
+		if(scan.hasNext()){this.e=scan.nextInt();}
+		adj = (List<graphNode>[]) new ArrayList[n+1];
+		
+		for(int i=0;i<=n;i++){
+			adj[i] = new ArrayList<graphNode>();
+		}
+		while(scan.hasNext()){
+			int u=scan.nextInt();
+			int v=scan.nextInt();
+			int l=scan.nextInt();
+			adj[u].add(new graphNode(v,l));
+		}
+	}
+	
+	public static void main(String[] args) {
+		File file = new File();
+		GraphBasics g1 = new GraphBasics()
+	}
+
+}

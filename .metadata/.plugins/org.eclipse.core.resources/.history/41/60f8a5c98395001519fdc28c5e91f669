@@ -1,0 +1,35 @@
+package cracking.the.coding.interview;
+
+class TreeNode{
+	int data;
+	TreeNode left;
+	TreeNode right;
+	
+	TreeNode(int data,TreeNode left,TreeNode right){
+		this.data=data;
+		this.left=left;
+		this.right=right;
+	}
+}
+public class TreeBasics {
+	TreeNode root;
+	
+	void create(){
+		root=new TreeNode(1,null,null);
+		root.right = new TreeNode(2,null,null);
+		root.left = new TreeNode(3,null,null);
+	}
+	
+	void inorder(TreeNode n){
+		if(n==null) return;
+		inorder(n.left);
+		System.out.println(n.data);
+		inorder(n.right);
+	}
+	public static void main(String[] args) {
+		TreeBasics t1= new TreeBasics();
+		t1.create();
+		t1.inorder(t1.root);
+	}
+
+}

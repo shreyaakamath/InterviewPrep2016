@@ -1,0 +1,9 @@
+package cracking.the.coding.interview;
+
+public class StackQueue {
+
+	public static void main(String[] args) {
+
+	}
+
+}

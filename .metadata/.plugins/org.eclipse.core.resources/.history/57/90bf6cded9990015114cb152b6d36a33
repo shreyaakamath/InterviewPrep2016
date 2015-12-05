@@ -1,0 +1,29 @@
+package random.trial.stuff;
+
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+
+public class JavaDSPractice {
+
+	public static void main(String[] args) {
+		//normal min pririoty queue 
+		PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+		pq.add(10);
+		pq.add(9);
+		
+		/*iterate over queue-> 5 ways Ref: http://crunchify.com/how-to-iterate-through-java-list-4-way-to-iterate-through-loop/
+		 * 1)normal for loop
+		 * 2)for(int n: pq)...
+		 * 3)using an iterator
+		 */
+		
+		Iterator<Integer> it = pq.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
+		//max priority queue
+		PriorityQueue<Integer> pqMax = new PriorityQueue<Integer>(10,Collections.reverseOrder());
+	}
+
+}

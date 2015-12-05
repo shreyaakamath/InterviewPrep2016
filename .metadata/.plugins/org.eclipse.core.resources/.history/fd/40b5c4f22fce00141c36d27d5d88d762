@@ -1,0 +1,35 @@
+package data.structures;
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+import java.util.Scanner;
+
+public class trial {
+  
+   public static void main(String[] args) {
+      Scanner scan = new Scanner(System.in) ;
+      int num = scan.nextInt();
+       System.out.println("no of nums="+num);
+       int[] a = new int[num];
+       for(int i =0;i<num;i++){
+           a[i] = scan.nextInt();
+           System.out.print(a[i]+",");
+       }
+       
+       for(int i=0;i<num;i++){
+           int val = a[i];
+           boolean pairExists = false;
+           for(int j=0;j<num;j++){
+               if(j==i) continue;
+               if(a[j] == a[i]) pairExists = true;
+           }
+           if(!pairExists){
+               System.out.println(val);break;
+           }
+       }
+        
+    }
+}

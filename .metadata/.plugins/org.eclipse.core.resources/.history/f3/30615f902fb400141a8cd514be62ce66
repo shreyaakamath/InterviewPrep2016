@@ -1,0 +1,278 @@
+package data.structures;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BinarySearchTree {
+	Node root;
+	boolean sumExists;
+	boolean sameTree;
+	
+	class Node{
+		int key;
+		Node parent;
+		Node right;
+		Node left;
+		
+		
+		Node(int key , Node right , Node left,Node parent){
+			this.key = key;
+			this.right= right;
+			this.left=left;
+			this.parent=parent;
+		}
+	}
+	
+	Node elementExistsRecursive(Node n1 , int key){
+		Node returnNode=null;
+		if(n1!=null){
+			if(n1.key==key) return n1;
+			else if(key <= n1.key) returnNode= elementExistsRecursive(n1.left, key);
+			else returnNode= elementExistsRecursive(n1.right, key);
+		}
+		return returnNode;
+	}
+	
+	boolean elementExistsIterative(Node n1 , int key){
+		while(true){
+			if(n1!=null){
+				if(n1.key==key) {return true;}
+				else if(key <= n1.key){n1=n1.left;continue;}
+				else if(key > n1.key){n1=n1.right;continue;}
+			}else break;
+		}
+		return false;
+	}
+	//smallest element larger 
+	Node successor(Node n1){
+		return treeMinimum(n1.right);
+	}
+	
+	//largest element smaller
+	Node predecessor(Node n1){
+		return treeMaximum(n1.left);
+	}
+	Node treeMinimum(Node n1){
+		Node min=null;
+		if(n1!=null){
+		if(n1.left == null) return n1;
+		else min=treeMinimum(n1.left);
+		}
+		return min;
+	}
+	
+	Node treeMaximum(Node n1){
+		Node max=null;
+		if(n1!=null){
+		if(n1.right==null) return n1;
+		else max=treeMaximum(n1.right);
+		}
+		return max;
+	}
+	
+	void insert(Node n1 , int num){
+		if(root == null) {root = new Node(num, null, null, null);sumExists=false;sameTree=false;return;}
+		if(num<n1.key){
+			if(n1.left!=null) insert(n1.left , num);
+			else {Node n2 = new Node(num, null, null, n1);n1.left = n2;}
+		} else{
+			if(n1.right!=null) insert(n1.right , num);
+			else {Node n2 = new Node(num, null, null, n1);n1.right=n2;}
+		}
+		
+	}
+	
+	/*can be converted to post order / pre order by permutating the three statements*/
+	void inorderWalk(Node n1){
+		if(n1==null) return;
+		inorderWalk(n1.left);
+		System.out.println(n1.key);
+		inorderWalk(n1.right);
+		
+	}
+
+	void deleteNode(int key){
+		Node n1 = elementExistsRecursive(root, key);
+		if(n1!=null){
+			
+			//no children -> leaf . adjust parent pointers
+			if(n1.left==null && n1.right==null) {
+				if(n1==root){root=null;return;}
+				if(n1.key<n1.parent.key)n1.parent.left=null;
+				else n1.parent.right=null;
+				return;
+			}  
+		
+			//only one sub-child. move child to parent position. adjust pointers. 
+			if(n1.left == null ^ n1.right ==null){
+					
+					//if the node to be deleted is parent 
+					if(n1==root){ 
+						//if root has right child
+						if(n1.left ==null) root = n1.right;
+						else root = n1.left;
+						return;
+					}
+					
+					boolean isleftChild = n1.parent.left == null?false:true;
+					//node to be deleted has only right child
+					if(n1.left==null){
+						if(isleftChild) n1.parent.left = n1.right;	
+						else n1.parent.right = n1.right;
+						n1.right.parent=n1.parent;
+					}
+					//node to be deleted has only left child
+					else {
+						if(isleftChild) n1.parent.left=n1.left;
+						else n1.parent.right = n1.left;
+						n1.left.parent=n1.parent;
+					}
+				} 
+			//node to be deleted has two children 
+			else {
+				Node succ =  successor(n1);	
+				int temp=succ.key;
+				deleteNode(succ.key);
+				n1.key=temp;
+
+				}
+		}
+	}
+	
+	/*count number of nodes in tree-> recursion*/
+	int countNodes(Node n1){
+		if(n1==null) return 0;
+		return countNodes(n1.left) +1+ countNodes(n1.right) ;
+	}
+	
+	int maxDepth(Node n1){
+		if(n1==null) return -1;
+		return Math.max(maxDepth(n1.right), maxDepth(n1.left) )+1;
+	}
+
+	boolean printPath(Node n1,List<Node> pathToParent , int sum){
+		if(n1.right == null && n1.left == null) {
+			int total=0;
+			pathToParent.add(n1);
+			System.out.println("---path---");
+			for(Node a : pathToParent){
+				System.out.print(a.key+",");
+				total+=a.key;
+			}
+			System.out.println();
+			pathToParent.remove(n1);
+			if(total == sum) {sumExists= true;System.out.println("match!");}
+		}
+		pathToParent.add(n1);
+		if(n1.left != null)  printPath(n1.left,pathToParent,sum);
+		if(n1.right != null) printPath(n1.right,pathToParent,sum);
+		pathToParent.remove(n1);
+		return sumExists;
+	}
+	/*role of left and right pointers need to be swapped*/
+	void mirror(Node n1 ){
+		if(n1.left ==null && n1.right ==null) return ; 
+		mirror(n1.left);
+		mirror(n1.right);
+		Node temp = n1.left;
+		n1.left = n1.right;
+		n1.right=temp;
+		if(n1==root) return;
+		
+	}
+	
+	/*for each node , create a duplicate node and insert it to the left of the original node*/
+	void doubleTree(Node n1){
+		if(n1==null) return;
+		Node temp = new Node(n1.key, null, n1.left, n1);
+		if(n1.left != null ) n1.left.parent=temp;
+		n1.left= temp;
+		doubleTree(temp.left);
+		doubleTree(n1.right);
+		return;
+	}
+	boolean isLeaf(Node n1){
+		return(n1.left==null&&n1.right==null);
+	}
+	boolean sameTree(Node n1 , Node n2){
+		/*if(n1!=null && n2!=null){
+		boolean keySame = n1.key == n2.key;
+		boolean leftSame = n1.left.key == n2.left.key;
+		boolean rightSame = n1.right.key==n2.right.key;
+		if(!(keySame && leftSame && rightSame)) {
+			sameTree = false;
+		}
+		} else if(n1==null ^ n2==null) {
+			sameTree= false;
+		} 
+		
+		sameTree(n1.left , n2.left);
+		sameTree(n1,n2);
+		sameTree(n1.right, n2.right);*/
+		
+		if(!isLeaf(n1)){
+			//n1 is not leaf but n2 is leaf
+			if(isLeaf(n2)) sameTree=false;
+			//both are not leaves
+			else {
+				boolean keySame = n1.key == n2.key;
+				boolean leftSame = n1.left.key == n2.left.key;
+				boolean rightSame = n1.right.key==n2.right.key;
+				if(!(keySame && leftSame && rightSame)) sameTree=false;
+			}
+		} else {
+			//n1 is leaf 
+			if(!isLeaf(n2)) sameTree=false;
+			//both are leaves
+			else {
+			if(n1.key != n2.key) sameTree=false;	
+			}
+		}
+			
+		
+		
+		
+		return sameTree;
+	}
+	public static void main(String args[]){
+		BinarySearchTree t1 = new BinarySearchTree();
+		int[] a ={4,2,1,3,5};
+		
+		BinarySearchTree t2 = new BinarySearchTree();
+		int[] b ={4,2,1,3,5};
+		
+		for(int num:a) t1.insert(t1.root, num);
+		for(int num:b) t2.insert(t2.root, num);
+		t1.inorderWalk(t1.root);
+
+		System.out.println("------");
+		System.out.println(t1.sameTree(t1.root, t2.root));
+		/*t1.doubleTree(t1.root);
+		t1.inorderWalk(t1.root);
+		t1.mirror(t1.root);
+		t1.inorderWalk(t1.root);
+		System.out.println(t1.printPath(t1.root, new ArrayList<Node>(),119));
+		System.out.println(t1.maxDepth(t1.root));
+		System.out.println(t1.countNodes(t1.root));
+		t1.deleteNode(20);
+		t1.inorderWalk(t1.root);
+		Node treeMin= t1.treeMinimum(t1.root);
+		if(treeMin!=null)System.out.println(treeMin.key);
+		Node treeMax= t1.treeMaximum(t1.root);
+		if(treeMax!=null)System.out.println(treeMax.key);
+		
+		Node ans = t1.successor(t1.root.left.right);
+		if(ans!=null) System.out.println(ans.key);else System.out.println("successor is null");
+		ans=t1.predecessor(t1.root.left.right);
+		if(ans!=null) System.out.println(ans.key); else System.out.println("predecessor is null");*/
+	}
+	
+	
+}
+
+/*
+sample trees:
+int[] a ={30,20,10,25,22,21,27};
+int[] a ={30,20,10,25,22,21,27,5,40};
+int[] a ={4,2,1,3,5};
+*/

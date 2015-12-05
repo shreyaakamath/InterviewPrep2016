@@ -1,0 +1,171 @@
+package data.structures;
+
+public class BinarySearchTree {
+	Node root;
+	int count;
+	
+	class Node{
+		int key;
+		Node parent;
+		Node right;
+		Node left;
+		
+		
+		Node(int key , Node right , Node left,Node parent){
+			this.key = key;
+			this.right= right;
+			this.left=left;
+			this.parent=parent;
+		}
+	}
+	
+	Node elementExistsRecursive(Node n1 , int key){
+		Node returnNode=null;
+		if(n1!=null){
+			if(n1.key==key) return n1;
+			else if(key <= n1.key) returnNode= elementExistsRecursive(n1.left, key);
+			else returnNode= elementExistsRecursive(n1.right, key);
+		}
+		return returnNode;
+	}
+	
+	boolean elementExistsIterative(Node n1 , int key){
+		while(true){
+			if(n1!=null){
+				if(n1.key==key) {return true;}
+				else if(key <= n1.key){n1=n1.left;continue;}
+				else if(key > n1.key){n1=n1.right;continue;}
+			}else break;
+		}
+		return false;
+	}
+	//smallest element larger 
+	Node successor(Node n1){
+		return treeMinimum(n1.right);
+	}
+	
+	//largest element smaller
+	Node predecessor(Node n1){
+		return treeMaximum(n1.left);
+	}
+	Node treeMinimum(Node n1){
+		Node min=null;
+		if(n1!=null){
+		if(n1.left == null) return n1;
+		else min=treeMinimum(n1.left);
+		}
+		return min;
+	}
+	
+	Node treeMaximum(Node n1){
+		Node max=null;
+		if(n1!=null){
+		if(n1.right==null) return n1;
+		else max=treeMaximum(n1.right);
+		}
+		return max;
+	}
+	
+	void insert(Node n1 , int num){
+		if(root == null) {root = new Node(num, null, null, null);return;}
+		if(num<n1.key){
+			if(n1.left!=null) insert(n1.left , num);
+			else {Node n2 = new Node(num, null, null, n1);n1.left = n2;}
+		} else{
+			if(n1.right!=null) insert(n1.right , num);
+			else {Node n2 = new Node(num, null, null, n1);n1.right=n2;}
+		}
+		
+	}
+	
+	void inorderWalk(Node n1){
+		if(n1==null) return;
+		inorderWalk(n1.left);
+		System.out.println(n1.key);
+		inorderWalk(n1.right);
+	}
+
+	void deleteNode(int key){
+		Node n1 = elementExistsRecursive(root, key);
+		if(n1!=null){
+			
+			//no children -> leaf . adjust parent pointers
+			if(n1.left==null && n1.right==null) {
+				if(n1==root){root=null;return;}
+				if(n1.key<n1.parent.key)n1.parent.left=null;
+				else n1.parent.right=null;
+				return;
+			}  
+		
+			//only one sub-child. move child to parent position. adjust pointers. 
+			if(n1.left == null ^ n1.right ==null){
+					
+					//if the node to be deleted is parent 
+					if(n1==root){ 
+						//if root has right child
+						if(n1.left ==null) root = n1.right;
+						else root = n1.left;
+						return;
+					}
+					
+					boolean isleftChild = n1.parent.left == null?false:true;
+					//node to be deleted has only right child
+					if(n1.left==null){
+						if(isleftChild) n1.parent.left = n1.right;	
+						else n1.parent.right = n1.right;
+						n1.right.parent=n1.parent;
+					}
+					//node to be deleted has only left child
+					else {
+						if(isleftChild) n1.parent.left=n1.left;
+						else n1.parent.right = n1.left;
+						n1.left.parent=n1.parent;
+					}
+				} 
+			//node to be deleted has two children 
+			else {
+				Node succ =  successor(n1);	
+				int temp=succ.key;
+				deleteNode(succ.key);
+				n1.key=temp;
+
+				}
+		}
+	}
+	
+	/*count number of nodes in tree-> recursion*/
+	int countNodes(Node n1){
+		if(n1==null) return 0;
+		return countNodes(n1.left) +1+ countNodes(n1.right) ;
+	}
+	
+	
+	public static void main(String args[]){
+		BinarySearchTree t1 = new BinarySearchTree();
+		int[] a ={30,20,10,25,22,21,27,5,40};
+		for(int num:a) t1.insert(t1.root, num);
+		t1.inorderWalk(t1.root);
+
+		System.out.println("------");
+		t1.countNodes(t1.root.right);
+		System.out.println(t1.count);
+		/*t1.deleteNode(20);
+		t1.inorderWalk(t1.root);
+		Node treeMin= t1.treeMinimum(t1.root);
+		if(treeMin!=null)System.out.println(treeMin.key);
+		Node treeMax= t1.treeMaximum(t1.root);
+		if(treeMax!=null)System.out.println(treeMax.key);
+		
+		Node ans = t1.successor(t1.root.left.right);
+		if(ans!=null) System.out.println(ans.key);else System.out.println("successor is null");
+		ans=t1.predecessor(t1.root.left.right);
+		if(ans!=null) System.out.println(ans.key); else System.out.println("predecessor is null");*/
+	}
+	
+	
+}
+
+/*
+sample trees:
+int[] a ={30,20,10,25,22,21,27};
+*/

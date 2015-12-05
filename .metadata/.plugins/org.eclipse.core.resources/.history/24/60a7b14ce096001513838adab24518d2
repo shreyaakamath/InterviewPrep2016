@@ -1,0 +1,26 @@
+package cracking.the.coding.interview;
+
+import java.util.Scanner;
+public class Main {
+public static void main(String args[] ) throws Exception {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    Scanner scan = new Scanner(System.in);
+    int m = scan.nextInt();
+    int n = scan.nextInt();
+    String str ="";
+    for(int i=0;i<n;i++){
+        str=str+i;
+    }
+    permutation("", str);   
+}
+    private static void permutation(String prefix, String str){
+        int n = str.length();
+        if (n == 0) 
+            System.out.println(prefix);
+        else {
+            for (int i = 0; i < n; i++)
+                permutation(prefix + str.charAt(i), 
+            str.substring(0, i) + str.substring(i+1));
+        }
+    }
+}

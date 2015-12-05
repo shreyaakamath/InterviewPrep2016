@@ -1,0 +1,57 @@
+package binary.tree.operations;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class PreorderConstruct {
+	
+	static void construct(TreeNode root , List<Integer> inorder ,int start , int end, List<Integer> preorder){
+		if(preorder.size()==0) return;
+		//first element of preorder is a node val. fetch and delete 
+		int node = preorder.get(0);
+		preorder.remove(new Integer(node));
+		root = new TreeNode(node);
+		
+		int mid=0;
+		boolean leafLeft=false;
+		boolean leafRight=false;
+		
+		//find the node value in the inorder list. split left and right based on this.
+		for(int i=start;i<end;i++)
+			if(inorder.get(i)==node){mid=i;break;}
+		
+		//check if node has only leaves
+		if(mid-start == 1){
+			leafLeft=true;
+			int left=inorder.get(mid-1);
+			root.left=new TreeNode(left);
+			preorder.remove(new Integer(left));
+		}
+		if(end-mid==1){
+			leafRight=true;
+			int right = inorder.get(mid+1);
+			root.right=new TreeNode(right);
+			preorder.remove(new Integer(right));
+		}
+
+		//if node has more than leaves than split and call again
+		if(!leafLeft)  construct(root.left,inorder,start,mid,preorder);
+		if(!leafRight) construct(root.right,inorder,mid+1,end,preorder);
+	}
+	
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		List<Integer> preorder= new ArrayList<Integer>();
+		while(scan.hasNext()){
+			preorder.add(scan.nextInt());
+		}
+		List<Integer> inorder = new ArrayList<Integer>(preorder);
+		Collections.sort(inorder);
+		TreeNode root=null;
+		construct(root,inorder,0,inorder.size(),preorder);	
+		System.out.println();
+	}
+
+}

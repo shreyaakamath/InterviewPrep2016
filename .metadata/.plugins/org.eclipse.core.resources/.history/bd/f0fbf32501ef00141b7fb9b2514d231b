@@ -1,0 +1,15 @@
+package spoj.most.solved.probs;
+
+import java.util.*;
+
+public class Candy3 {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int test = scan.nextInt();
+		String[] ans = new String[test];
+		
+		
+	}
+
+}

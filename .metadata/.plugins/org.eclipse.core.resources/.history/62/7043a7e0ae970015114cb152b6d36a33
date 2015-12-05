@@ -1,0 +1,17 @@
+package cracking.the.coding.interview;
+
+import java.util.HashMap;
+
+public class ArraysStrings {
+	
+	void hashTables(){
+		HashMap<Integer,String> ht = new HashMap<Integer,String>();
+		ht.add(1,"hello");
+		
+	}
+
+	public static void main(String[] args) {
+
+	}
+
+}

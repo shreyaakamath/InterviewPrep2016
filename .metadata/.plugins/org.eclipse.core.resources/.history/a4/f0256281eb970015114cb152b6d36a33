@@ -1,0 +1,27 @@
+package cracking.the.coding.interview;
+
+class Node{
+	int data;
+	Node next;
+	
+	Node(int n){
+		data=n;
+	}
+}
+public class LinkedList {
+	Node head;
+	
+	void append (int val){
+		 Node n = new Node(val);
+		 if(head==null)head=n;
+		 else{
+			 n.next=head;head=n;
+		 }
+			 
+	}
+	
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -1,0 +1,38 @@
+package spoj.most.solved.probs;
+
+import java.util.*;
+
+/*
+ * http://www.spoj.com/problems/ACPC10A/
+ */
+
+public class WhatNext {
+
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+		List<Integer> n1 = new ArrayList<Integer>();
+		List<Integer> n2 = new ArrayList<Integer>();
+		List<Integer> n3 = new ArrayList<Integer>();
+		int i=0;
+		int m1,m2,m3;
+		while(scan.hasNext()){
+			m1 = scan.nextInt();m2 = scan.nextInt();m3 = scan.nextInt();
+			if(m1==0 &&m2==0 && m3==0) break;
+			n1.add(i, m1);
+			n2.add(i, m2);
+			n3.add(i, m3);
+			i++;
+		}
+		
+		for(int j=0;j<i;j++){
+			m1 = n1.get(j);m2 = n1.get(j);m3 = n1.get(j);
+			if((m2-m1) == (m3-m2)) {
+				System.out.println("AP "+(m3+(m3-m2)));
+			} else {
+				System.out.println("GP "+(m3*(m3/m2)));
+			}
+		}
+	}
+
+}

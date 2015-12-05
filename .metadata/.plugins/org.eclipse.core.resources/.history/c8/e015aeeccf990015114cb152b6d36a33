@@ -1,0 +1,167 @@
+/*
+ * http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+ */
+package bst.operations;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import binary.tree.operations.TreeNode;
+
+public class IsBst {
+
+	TreeNode root;
+	
+	void generateBst(){
+		insert(root,10);
+		insert(root,5);
+		insert(root,8);
+		insert(root,2);
+		insert(root,0);
+		//root.right.val=100;
+		//root.left.right.val=20;
+	}
+	 void insert(TreeNode n1,int val){
+		 if(root==null){root=new TreeNode(val);}
+		if(n1==null) {return;}
+		if(val<n1.val){
+			if(n1.left==null){n1.left=new TreeNode(val);return;}
+			else insert(n1.left,val);
+		}
+		else if(val>=n1.val) {
+			if(n1.right==null){n1.right=new TreeNode(val);return;}
+			insert(n1.right,val);
+		}
+	}
+	 /*simple but wrong*/
+	 boolean testOld(TreeNode n1){
+		 Queue<TreeNode> q= new LinkedList<TreeNode>();
+		 Queue<TreeNode> fix= new LinkedList<TreeNode>();
+		 boolean flag=true;
+		 q.add(n1);
+		 TreeNode tmp;
+		 while(!q.isEmpty()){
+			 tmp=q.remove();
+			 if(tmp.left!=null){
+				 if(tmp.left.val>tmp.val) {
+					 flag=false; fix.add(tmp.left);continue;
+					 }
+				 q.add(tmp.left);
+			 }
+			 if(tmp.right!=null){
+				 if(tmp.right.val<tmp.val){
+					 flag=false;fix.add(tmp.right);continue;
+					 }
+				 q.add(tmp.right);
+			 }
+			
+			 
+		 }
+		 System.out.println(fix.size());
+		 return flag;
+	 }
+
+	 /*correct but inefficient solution*/
+	 boolean test(TreeNode n1){
+		 boolean flag=false;;
+		 int left=largest(n1.left);
+		 int right = smallest(n1.right);
+		 if(left>n1.val) {flag=false;}
+		 if(right<n1.val) {flag= false;}
+		 return flag;
+	 }
+	 
+	 boolean isLeaf(TreeNode n1){
+		 return n1.left==null&&n1.right==null?true:false;
+	 }
+	 
+	 int max(int a,int b,int c){
+		 int max=a>b?a:b;
+		 max=max>c?max:c;
+		 return max;
+	 }
+	
+	 int min(int a,int b,int c){
+		 int min=a>b?b:a;
+		 min=min>c?c:min;
+		 return min;
+	 }
+	
+	 int largest(TreeNode n1 ){
+		 if(n1==null) return 0;
+		 if(isLeaf(n1)) return n1.val;
+		 int n = max(largest(n1.left),largest(n1.right),n1.val);
+		 return n;
+	 }
+	 int smallest(TreeNode n1 ){
+		 if(n1==null) return 0;
+		 if(isLeaf(n1)) return n1.val;
+		 int n = min(largest(n1.left),largest(n1.right),n1.val);
+		 return n;
+	 }	 
+	 
+	 /*efficient solution*/
+	 void inorder(TreeNode n1,List<Integer> a, int i){
+			if(n1==null) return;
+			inorder(n1.left,a,i);
+			a.add(n1.val);
+			inorder(n1.right,a,i);
+		}
+	 public boolean isSorted(List<Integer> list)
+	 {
+	     boolean sorted = true;        
+	     for (int i = 1; i < list.size(); i++) {
+	         if (list.get(i-1).compareTo(list.get(i)) > 0) sorted = false;
+	     }
+
+	     return sorted;
+	 } 
+	 boolean testEfficient(){
+		 List<Integer> a= new LinkedList<Integer>();
+		 inorder(root,a,0);
+		 if(isSorted(a)) return true;
+		 else return false;
+		 
+	 }
+
+	boolean check(TreeNode n){
+		if(n==null) return true;
+		checkUtil(n.left,n.val,1);
+		checkUtil(n.right,n.val,0);
+	boolean	l =check(n.left);
+		boolean r = check(n.right);
+		
+		return l&&r;
+	}
+	
+	boolean checkUtil(TreeNode n,int val,int flag){
+		if(n ==null) return true;
+		if(n.left==null||n.right==null) return true;
+		
+		int l=n.left.val;
+		int r=n.right.val;
+		if(l<=n.val && r>n.val){
+			if(flag==1){
+			int large=max(l,r,n.val);
+			if(large>val) return false;
+			}else{
+				int small=min(l,r,n.val);
+				if(small<val) return false;
+			}
+		}else{
+			return false;
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		IsBst t1 = new IsBst();
+		t1.generateBst();
+//		BstCommonOperations.print(t1.root);
+		//System.out.println(t1.test(t1.root));
+//		System.out.println(t1.testEfficient());
+		System.out.println(t1.check(t1.root));
+	}
+
+}

@@ -1,0 +1,42 @@
+package cracking.the.coding.interview;
+
+class Stack{
+	Node head;
+	
+	void push(int data){
+		Node n = new Node(data);
+		if(head==null) head=n;
+		else{
+			n.next=head;head=n;
+		}
+	}
+	
+	int pop(){
+		if(head==null) return 0;
+		int n = head.data;
+		head=head.next;
+		return n;
+	}
+	
+	void print(){
+		Node tmp=head;
+		while(tmp!=null){
+			System.out.print(tmp.data+" ");
+		}
+	}
+}
+
+class Queue{
+	
+}
+public class StackQueue {
+
+	public static void main(String[] args) {
+		Stack s = new Stack();
+		s.push(1);s.push(2);s.push(3);
+		s.print();
+		s.pop();s.pop();
+		//s.print();
+	}
+
+}

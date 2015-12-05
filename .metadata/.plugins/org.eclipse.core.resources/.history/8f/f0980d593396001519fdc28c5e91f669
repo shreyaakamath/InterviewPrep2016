@@ -1,0 +1,193 @@
+/*
+ * Tree Basics :
+ * 1)Inorder Traversal(L N R)
+ * 2)Preorder  Traversal(N L R)
+ * 3)Postorder Traversal (L R N)
+ * 
+ * Prob:
+ 
+4.1) Implement a function to check if a tree is balanced. For the purposes of this question,
+a balanced tree is defined to be a tree such that no two leaf nodes differ in distance
+from the root by more than one.
+ 
+4.3 )Given a sorted (increasing order) array, write an algorithm to create a binary tree with
+minimal height.
+
+4.4) Given a binary search tree, design an algorithm which creates a linked list of all the
+nodes at each depth (i.e., if you have a tree with depth D, you’ll have D linked lists).
+
+ */
+package cracking.the.coding.interview;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+
+class TreeNode{
+	int data;
+	TreeNode left;
+	TreeNode right;
+	
+	TreeNode(int data,TreeNode left,TreeNode right){
+		this.data=data;
+		this.left=left;
+		this.right=right;
+	}
+}
+public class TreeBasics {
+	TreeNode root;
+	
+	void create(){
+		root=new TreeNode(20,null,null);
+		root.right = new TreeNode(22,null,null);
+		root.left = new TreeNode(8,null,null);
+		root.left.left= new TreeNode(4,null,null);
+		root.right.left=new TreeNode(21,null,null);
+		root.right.right=new TreeNode(24,null,null);
+	}
+	
+	void inorder(TreeNode n){
+		if(n==null) return;
+		inorder(n.left);
+		System.out.println(n.data);
+		inorder(n.right);
+	}
+	
+	void preorder(TreeNode n){
+		if(n==null) return;
+		System.out.println(n.data);
+		inorder(n.left);
+		inorder(n.right);
+	}
+	
+	void postorder(TreeNode n){
+		if(n==null) return;
+		inorder(n.left);
+		inorder(n.right);
+		System.out.println(n.data);
+	}
+	
+	/*BST insert*/
+	void insert(TreeNode n1,int val){
+		if(n1==null){n1=new TreeNode(val,null,null);}
+		if(val<=n1.data){
+			if(n1.left==null){n1.left=new TreeNode(val,null,null);return;}
+			insert(n1.left,val);
+		}else{
+			if(n1.right==null){n1.right=new TreeNode(val,null,null);return;}
+			insert(n1.right,val);
+		}
+	}
+	
+	boolean balanced(){
+		PriorityQueue<Integer> depth = new PriorityQueue<Integer>();
+		recurBalanced(depth,root,0);
+		int	 size=depth.size();
+		Integer[] arr=depth.toArray(new Integer[0]);
+		if(arr[size-1]-arr[0]>1) return false;
+		else return true;
+	}
+	
+	boolean isLeaf(TreeNode n1){
+		if(n1==null) return false;
+		if(n1.right==null && n1.left==null) return true;
+		else return false;
+	}
+	
+	void recurBalanced(PriorityQueue<Integer> depth, TreeNode n1,int val){
+		if(n1==null) return;
+		if(isLeaf(n1)==true) {depth.add(val);return;}
+		else {
+			int tmp=val++;
+			recurBalanced(depth,n1.right,++val);
+			recurBalanced(depth,n1.left,++val);
+		}
+	}
+	
+	void arrToBin(int[] arr){
+	TreeNode n1 = new TreeNode(arr[0],null,null);
+	arrRecur(n1,arr,0);
+	root=n1;
+	//inorder(n1);
+	}
+	
+	void arrRecur(TreeNode n1,int[] arr, int index){
+		
+		int l=index*2+1;
+		int r=index*2+2;
+		if(l<arr.length){
+			n1.left=new TreeNode(arr[index*2+1],null,null);
+			arrRecur(n1.left,arr,l);
+		}
+		if(r<arr.length){
+			n1.right=new TreeNode(arr[index*2+2],null,null);
+			arrRecur(n1.right,arr,r);
+		}
+		return;
+	}
+	
+	void createLL(int depth){
+		List<TreeNode>[] ll = (List<TreeNode>[])new ArrayList[depth+1];
+		addToLL(ll,0,root);
+		for(int i=0;i<=depth;i++){
+			for(TreeNode n:ll[i]) System.out.print(n.data+",");
+		}
+	}
+	
+	void addToLL(List<TreeNode>[] ll , int depth, TreeNode n1){
+		if(ll[depth] ==null){ ll[depth] = new ArrayList<TreeNode>();}
+		ll[depth].add(n1);
+		if(isLeaf(n1)==true) return;
+		else{
+			if(n1.right!=null) addToLL(ll,depth+1,n1.right);
+			if(n1.left!=null) addToLL(ll,depth+1,n1.left);
+		}
+	}
+	
+	int max(int a,int b,int c){
+		int max1 = a>b?a:b;
+		int max2 = max1>c?max1:c;
+		return max2;
+	}
+	int height(TreeNode n1,int ht){
+		if(n1==null) return 0;
+		int left=0,right=0;
+		if(n1.left!=null) left=height(n1.left,ht+1);
+		if(n1.right!=null) right = height(n1.right,ht+1);
+		return max(left,right,ht);
+	}
+	
+	TreeNode smallest(TreeNode n ){
+		if(n.left==null) return n;
+		else {
+			return smallest(n.left);
+		}
+	}
+	
+	void successor(TreeNode n1){
+		if(n1.right==null)
+			System.out.println(n1.parent.val);
+		else System.out.println(smallest(n1.right.val));
+	}
+	static void testOrdering(){
+		TreeBasics t1= new TreeBasics();
+		t1.create();
+		t1.inorder(t1.root);
+		System.out.println();
+		t1.preorder(t1.root);
+		System.out.println();
+		t1.postorder(t1.root);
+	}
+	
+	public static void main(String[] args) {
+		TreeBasics t1= new TreeBasics();
+		t1.create();
+		/*int[] arr = {1,2,3,4,5,6};
+		t1.arrToBin(arr);
+		int ht=t1.height(t1.root,0);
+		System.out.println(ht);
+		t1.createLL(ht);*/
+		
+	}
+
+}

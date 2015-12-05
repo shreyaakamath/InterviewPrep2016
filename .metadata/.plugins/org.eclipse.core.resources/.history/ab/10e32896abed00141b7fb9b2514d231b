@@ -1,0 +1,50 @@
+package spoj.most.solved.probs;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class TransformExpression {
+
+
+	public static void main(String[] args) {
+
+		Stack<Character>  operatorStack = new Stack<Character>();
+		Stack<Character>  letterStack = new Stack<Character>();
+		
+		Scanner scan = new Scanner(System.in);
+		int test = scan.nextInt();
+		String[] n = new String[test];
+		for(int i=0;i<test;i++){
+			n[i] = scan.next();
+		}
+		
+		for(int i=0;i<test;i++){
+			String expr = n[i];
+			String trans = "";
+			for(int j=0;j<expr.length();j++){
+				char c = expr.charAt(j);
+				if(c==')'){
+					//pop two letters and operator and add to trans
+					trans= trans+ letterStack.pop()+letterStack.pop()+operatorStack.pop();
+					letterStack.push(trans)
+				} else if (c=='('){
+					continue;
+				}
+				else if(Character.isLetter(c)){
+					letterStack.push(c);
+				} else {
+					operatorStack.push(c);
+				}
+			}
+			while(!letterStack.isEmpty()){
+				char letter = letterStack.pop();
+				trans = letter+trans;
+			}
+			while(!operatorStack.isEmpty()){
+				trans+=operatorStack.pop();
+			}
+			System.out.println(trans);
+		}
+	}
+
+}

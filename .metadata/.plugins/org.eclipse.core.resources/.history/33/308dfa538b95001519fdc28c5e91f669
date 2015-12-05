@@ -1,0 +1,72 @@
+package cracking.the.coding.interview;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+class graphNode{
+	int val;
+	int len;
+	
+	graphNode(int val,int len){
+		this.val=val;
+		this.len=len;
+	}
+}
+
+public class GraphBasics {
+	List<graphNode>[] adj;
+	int  n;
+	int e;
+	
+	GraphBasics(File file){
+		Scanner scan =null;
+		try{
+			scan = new Scanner(file);
+		}catch(FileNotFoundException err){
+			System.err.println(err.getMessage());
+		}
+		if(scan.hasNext()){this.n=scan.nextInt();}
+		if(scan.hasNext()){this.e=scan.nextInt();}
+		adj = (List<graphNode>[]) new ArrayList[n+1];
+		
+		for(int i=0;i<=n;i++){
+			adj[i] = new ArrayList<graphNode>();
+		}
+		while(scan.hasNext()){
+			int u=scan.nextInt();
+			int v=scan.nextInt();
+			int l=scan.nextInt();
+			adj[u].add(new graphNode(v,l));
+		}
+	}
+	
+	void bfs(graphNode s){
+		boolean visited[] = new boolean[n+1];
+		int edgeTo[] = new int[n+1];
+		LinkedList<graphNode> q = new LinkedList<graphNode>();
+		q.addLast(s);
+		while(!q.isEmpty()){
+			graphNode tmp=q.removeFirst();
+			if(!visited[tmp.val]){
+				visited[tmp.val] = true;
+				for(graphNode ch:adj[tmp.val]){
+					if(!visited[ch.val]){
+						q.addLast(ch);
+						edgeTo[ch.val]=tmp.val;
+					}
+				}
+			}
+		}
+		
+	}
+	public static void main(String[] args) {
+		File file = new File("graph.txt");
+		GraphBasics g1 = new GraphBasics(file);
+		System.out.println();
+	}
+
+}

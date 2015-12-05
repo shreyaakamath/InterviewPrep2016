@@ -1,0 +1,17 @@
+package cracking.the.coding.interview;
+
+public class Recursion {
+
+	static void factorial(int n, int prod){
+		if(n==0) return;
+		prod = prod * n ;
+		factorial(n-1,prod);
+	}
+	
+	public static void main(String[] args) {
+		Integer prod= new Integer(1);
+		factorial(3,prod);
+		System.out.println(prod);
+	}
+
+}

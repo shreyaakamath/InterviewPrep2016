@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;found&apos; in &apos;data.structures.BinarySearchTree.treeSearch(...)&apos; to &apos;foundNode&apos;&#x0D;&#x0A;- Original project: &apos;DataStructures&apos;&#x0D;&#x0A;- Original element: &apos;data.structures.BinarySearchTree.treeSearch(int).found&apos;&#x0D;&#x0A;- Renamed element: &apos;found&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;found&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;data.structures{BinarySearchTree.java[BinarySearchTree~treeSearch~I@found!1436!1457!1445!1449!QTreeNode;!0!false" name="foundNode" references="true" stamp="1429627880078" version="1.0"/>
+</session>

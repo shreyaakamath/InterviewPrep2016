@@ -1,0 +1,52 @@
+package spoj.most.solved.probs;
+
+/* 
+* http://www.spoj.com/problems/ADDREV/
+*/
+
+public class NumReverse {
+
+	static int getReverse(int n){
+		int reverse = 0;
+		int digits =0;
+		int remainder = n%10;
+		int num=n;
+		while(num >0){
+			digits++;
+			num = num/10;
+			remainder = num%10;
+		}
+
+		int i=1;remainder = n%10;num=n;
+		while(num>0){
+			reverse += remainder*(int)Math.pow(10, digits-i);
+			i++;
+			num = num/10;
+			remainder = num%10;
+		}
+		
+		
+		
+		
+		
+		/*int remainingNum =n ,lastDig=0 , divisor=0,multiplier=0,divcount=1,multcount=digits;
+		if(digits ==1) {reverse = n;}
+		else {
+			while(divisor!=1){
+				divisor = (int)Math.pow(10, (digits-divcount));
+				multiplier = (int) Math.pow(10, digits-multcount);
+				lastDig=remainingNum%divisor;
+				reverse += multiplier*lastDig;
+				divcount++;multcount--;
+				remainingNum=n/divisor;
+			}
+			reverse += multiplier*lastDig;
+		}*/
+		return reverse;
+	}
+	
+	public static void main(String[] args){
+		System.out.println(getReverse(10));
+	}
+}
+

@@ -1,0 +1,55 @@
+package cracking.the.coding.interview;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+class Node{
+	String val;
+	Node left;
+	Node right;
+	Node(String val){
+		this.val=val;
+	}
+}
+
+public class Solution {
+	Node root;
+	PriorityQueue<Integer> inorder;
+	List<Integer> preorder;
+	
+	Solution(PriorityQueue<Integer> inorder , List<Integer> preorder){
+		this.inorder=inorder;
+		this.preorder=preorder;
+		root = new Node(preorder.get(0));
+	}
+	
+	void postOrder(Node n1){
+		if(n1==null) return;
+		postOrder(n1.left);
+		postOrder(n1.right);
+		System.out.println(n1.val);
+	}
+	
+
+public static void main(String args[] ) throws Exception {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    Scanner scan = new Scanner(System.in);
+    LinkedList<Integer> preorder = new LinkedList<Integer>();
+    PriorityQueue<Integer> inorder = new PriorityQueue<Integer>();
+    int n ;
+    while(scan.hasNext()){
+    	n=scan.nextInt();
+    	preorder.add(n);
+        inorder.add(n);
+    }
+    
+    
+    int pre = preorder.removeFirst();
+    for(int i=0)
+    
+    
+}
+}

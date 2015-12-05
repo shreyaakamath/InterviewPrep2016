@@ -1,0 +1,47 @@
+import java.util.LinkedList;
+import java.util.Scanner;
+public class Solution {
+public static void main(String args[] ) throws Exception {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    Scanner scan = new Scanner(System.in);
+    String txt= scan.nextLine();
+    LinkedList<Character> list = new LinkedList<Character>();
+    boolean flag=true;
+    for(int i=0;i<txt.length();i++){
+    	char n = txt.charAt(i);
+    	if(n=='<' || n=='(' || n=='{'|| n=='['){
+    		list.addFirst(n);
+    	}else{
+    		char removed= list.removeFirst();
+    		switch(n){
+    		case '>':
+    			if(removed=='<')
+    			flag = true;
+    			break;
+    		case '}':
+    			if(removed=='{')
+    			flag = true;
+    			break;
+    		case ')':
+    			if(removed=='(')
+        			flag = true;
+        			break;
+    		case ']':
+    			if(removed=='[')
+    			flag = true;
+    			break;
+    		default:
+    			flag=false;
+    		}
+    		if(flag==false){
+    			break;
+    		}
+    	}
+    	if(flag==false){
+    		System.out.println("false");
+    	}else{
+    		System.out.println("true");
+    	}
+    }
+}
+}

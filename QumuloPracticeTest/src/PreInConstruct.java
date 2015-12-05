@@ -1,0 +1,56 @@
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+class Node{
+	int val;
+	Node left;
+	Node right;
+	Node(int val){
+		this.val=val;
+	}
+}
+
+public class PreInConstruct {
+
+	static void postOrder(Node n1){
+		if(n1==null) return;
+		postOrder(n1.left);
+		postOrder(n1.right);
+		System.out.println(n1.val);
+	}
+	static Node construct(int start,int end,List<Integer> in , List<Integer> pre){
+		int val = pre.remove(0);
+	    Node root = new Node(val);
+	    int part=0;
+	    for(int i=start;i<end;i++){
+	    	if(in.get(i)==val){
+	    		part=i;
+	    		break;
+	    	}
+	    }
+	    //left is from 0 to part , right is from part+1 to n
+	    if(pre.size()!=0 && (part-start == 0)){
+	    root.left=construct(start,part,in,pre);
+	    }
+	    if(pre.size()!=0){
+	    root.right=construct(part+1,end,in,pre);
+	    }
+	    return root;
+	}
+
+	public static void main(String args[] ) throws Exception { 
+	    List<Integer> pre = new ArrayList<Integer>();
+	    Scanner scan = new Scanner(System.in);
+	    while(scan.hasNext()){
+	    	int n = scan.nextInt();
+	    	pre.add(n);
+	    }
+	    List<Integer> in = new ArrayList<Integer>(pre);
+	    Collections.sort(in);
+	    Node root = construct(0,in.size(),in,pre);
+	    postOrder(root);
+	}	
+}

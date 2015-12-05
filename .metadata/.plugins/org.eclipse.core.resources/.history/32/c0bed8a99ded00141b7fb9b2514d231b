@@ -1,0 +1,27 @@
+package spoj.most.solved.probs;
+
+import java.util.Scanner;
+
+public class SmallFactorial {
+
+	static void getFactorial(int n){
+		long time = System.currentTimeMillis();
+		double factorial =n;
+		for(int i =2;i<n;i++)
+			factorial*=i;
+		long time1 = System.currentTimeMillis();
+		System.out.println((int)factorial);
+		System.out.println("time= "+(time1-time)/1000);
+	}
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int test = scan.nextInt();
+		int[]n = new int[test];
+		for(int i=0;i<test;i++){
+			n[i] = scan.nextInt();
+		}
+		for(int i=0;i<test;i++) getFactorial(n[i]);
+
+	}
+
+}

@@ -1,0 +1,47 @@
+package cracking.the.coding.interview;
+
+class Node{
+	int data;
+	Node next;
+	
+	Node(int n){
+		data=n;
+	}
+}
+public class LinkedList {
+	Node head;
+	
+	void append (int val){
+		 Node n = new Node(val);
+		 if(head==null)head=n;
+		 else{
+			 n.next=head;head=n;
+		 }
+	}
+	
+	void delete(int val){
+		if(head==null) return;
+		Node tmp=head;
+		Node prev =null;
+		while(tmp!=null){
+			if(tmp.data==val){
+				if(tmp==head){
+				prev.next=tmp.next;
+				}
+				else {
+					head=head.next;
+				}
+				break;
+			}else{
+				prev=tmp;
+				tmp=tmp.next;
+			}
+		}
+	}
+	public static void main(String[] args) {
+		LinkedList l1= new LinkedList();
+		l1.append(1);
+		l1.delete(1);
+	}
+
+}

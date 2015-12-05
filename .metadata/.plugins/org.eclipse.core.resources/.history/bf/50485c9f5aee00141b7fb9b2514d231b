@@ -1,0 +1,44 @@
+package spoj.most.solved.probs;
+
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+
+public class Fashion {
+
+	public static void main(String[] args) {
+
+		/*Scanner scan = new Scanner(System.in);
+		int test = scan.nextInt();
+		LinkedHashMap<int[], int[]> map = new LinkedHashMap<int[], int[]>();
+		for(int i=0;i<test;i++){
+			int n = scan.nextInt();
+			int[] man = new int[n];
+			int[] woman = new int[n];
+			for(int j=0;j<n;j++) man[j]=scan.nextInt();
+			for(int j=0;j<n;j++) woman[j]=scan.nextInt();
+			map.put(man, woman);
+		}
+		
+		for(int[] man : map.keySet()){
+			int[] woman = map.get(man);*/
+		int[] man = {2,7,6,4,1,3};
+			int length = man.length;
+			
+			for(int i=1;i<length;i++){
+				int key = man[i];int j ;
+				for(j=i-1;j>=0;j--){
+					if(man[j]>key) {
+						man[j+1] = man[j];
+					}
+					else{
+						man[j+1] = key;
+					}
+				}
+			//}
+			
+			
+		}
+			for(int i:man) System.out.println(i);
+	}
+
+}

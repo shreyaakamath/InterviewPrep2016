@@ -1,0 +1,88 @@
+package cracking.the.coding.interview;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class ArraysStrings {
+	
+	static void hashTables(){
+		HashMap<Integer,String> ht = new HashMap<Integer,String>();
+		ht.put(1,"hello");
+		ht.put(2,"bye");
+		for(Map.Entry<Integer,String> entry:ht.entrySet()){
+			System.out.println(entry.getKey()+"-"+entry.getValue());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("hi");
+		System.out.println(sb.toString());
+	}
+
+	static boolean strUnique(String s){
+		/*uses extra DS*/
+		Set<Character> set = new HashSet<Character>();
+		for(int i=0;i<s.length();i++){
+			if(set.contains(s.charAt(i))) return false;
+			else set.add(s.charAt(i));
+		}
+		return true;
+		/*w/o extra DS*/
+	}
+	
+	static void strReverse(String str){
+		/*in-place reverse*/
+		char[] s = str.toCharArray();
+		int n = s.length;
+		for(int i=0;i<n;i++){
+			if(n%2!=0) if(i==n/2) break;
+			else if(i>n/2) break;
+			char a = s[i];
+			char b = s[n-i-1];
+			s[i] = b;
+			s[n-i-1] = a;
+		}
+		System.out.println(Arrays.toString(s));
+	}
+	
+	static void removeDups(String str){
+		char[] newStr = new char[str.length()];
+		Set<Character> set = new HashSet<Character>();
+		int j=0;
+		for(int i =0;i<str.length();i++){
+			if(set.add(str.charAt(i))){
+				newStr[j++] = str.charAt(i);
+			}
+		}
+		System.out.println(Arrays.toString(newStr));
+	}
+	
+	static void anagrams(String str1 , String str2){
+		char[] arr1 = str1.toCharArray();
+		char[] arr2 = str2.toCharArray();
+		Arrays.sort(arr1);
+		Arrays.sort(arr2);
+		int len1 = str1.length();
+		int len2 = str2.length();
+		boolean flag = true;
+		if(len1!=len2) flag=false;
+		else{
+			for(int i =0;i<str1.length();i++){
+				if(arr1[i] == arr2[i]) continue;
+				else {flag=false;break;}
+			}
+		}
+		if(flag){System.out.println("anagrams");}
+		else{System.out.println("not anagrams");}
+	}
+	
+	public static void main(String[] args) {
+		//hashTables();'
+//		strReverse("hello");
+//		removeDups("aaccbb");
+		anagrams("abcd","dabc");
+	}
+
+}

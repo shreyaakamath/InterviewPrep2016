@@ -1,0 +1,31 @@
+package data.structures;
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+import java.util.Scanner;
+
+public class trial {
+	static boolean isPalindrome(String str){
+        boolean flag = true;
+        int len = str.length();
+        for(int i=0;i<len;i++){
+            int end = len-1-i;
+            if(end == i ) break;
+            if(str.charAt(i)!=str.charAt(end)) {flag = false; break;}
+        }
+        return flag;
+    }
+   public static void main(String[] args) {
+	   
+	   Scanner scan = new Scanner(System.in) ;
+	   String str = "hello";
+	   char ch = 'a';
+	   char newch = (char) (ch-1);
+	   System.out.println(newch);
+     
+        
+    }
+}

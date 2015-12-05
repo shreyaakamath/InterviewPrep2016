@@ -1,0 +1,12 @@
+package spoj.most.solved.probs;
+
+import java.util.Scanner;
+
+public class LastDig {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int test
+	}
+
+}

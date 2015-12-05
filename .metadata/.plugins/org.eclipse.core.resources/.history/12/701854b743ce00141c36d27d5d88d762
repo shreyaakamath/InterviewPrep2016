@@ -1,0 +1,44 @@
+package data.structures;
+
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+import java.util.Scanner;
+
+public class trial {
+	static boolean isPalindrome(String str){
+        boolean flag = true;
+        int len = str.length();
+        for(int i=0;i<len;i++){
+            int end = len-1-i;
+            if(end == i ) break;
+            if(str.charAt(i)!=str.charAt(end)) {flag = false; break;}
+        }
+        return flag;
+    }
+   public static void main(String[] args) {
+	   
+	   System.out.println(isPalindrome("aba"));
+	   Scanner scan = new Scanner(System.in) ;
+      int num = scan.nextInt();
+       int[] a = new int[num];
+       for(int i =0;i<num;i++){
+           a[i] = scan.nextInt();
+       }
+       
+       for(int i=0;i<num;i++){
+           int val = a[i];
+           boolean pairExists = false;
+           for(int j=0;j<num;j++){
+               if(j==i) continue;
+               if(a[j] == a[i]) pairExists = true;
+           }
+           if(!pairExists){
+               System.out.println(val);break;
+           }
+       }
+        
+    }
+}

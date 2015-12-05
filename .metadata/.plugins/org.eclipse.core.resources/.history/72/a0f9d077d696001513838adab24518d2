@@ -1,0 +1,19 @@
+package cracking.the.coding.interview;
+
+import java.io.*;
+import java.util.Scanner;
+public class Solution {
+public static void main(String args[] ) throws Exception {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    Scanner scan = new Scanner(System.in);
+    int n = scan.nextInt();
+    for(int i=1;i=<n;i++){
+       int m,k;
+        for(m=1;m<=(n-i);m++)
+            System.out.print(" ");
+        for(k=1;k<=i;k++)
+            System.out.print("#");
+        System.out.println();
+    }
+}
+}

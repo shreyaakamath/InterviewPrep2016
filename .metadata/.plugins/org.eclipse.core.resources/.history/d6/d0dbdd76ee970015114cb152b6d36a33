@@ -1,0 +1,109 @@
+package cracking.the.coding.interview;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * 2.1) remove dups from unsorted LL 
+ * @author shreyakamath
+ *
+ */
+class Node{
+	int data;
+	Node next;
+	
+	Node(int n){
+		data=n;
+	}
+}
+public class LinkedList {
+	Node head;
+	
+	void append (int val){
+		 Node n = new Node(val);
+		 if(head==null)head=n;
+		 else{
+			 n.next=head;head=n;
+		 }
+	}
+	
+	void delete(int val){
+		if(head==null) return;
+		Node tmp=head;
+		Node prev =null;
+		while(tmp!=null){
+			if(tmp.data==val){
+				if(prev!=null){
+				prev.next=tmp.next;
+				}
+				else {
+					head=head.next;
+				}
+				break;
+			}else{
+				prev=tmp;
+				tmp=tmp.next;
+			}
+		}
+	}
+	
+	void print(){
+		Node tmp = head;
+		while(tmp!=null){
+			System.out.print(tmp.data+" -> ");
+			tmp=tmp.next;
+		}
+		System.out.println();
+	}
+	
+	void removeDups(){
+		Set<Integer> set = new HashSet<Integer>();
+		Node tmp = head;
+		Node prev=null;
+		while(tmp!=null){
+			int val = tmp.data;
+			if(!set.add(val)){
+				//need to delete this node
+				if(prev!=null){
+					prev.next=tmp.next;
+				}else {
+						head=head.next;
+				}
+			}
+			prev=tmp;
+			tmp=tmp.next;
+		}
+	}
+	
+	void removeDupsNoBuffer(){
+		Node tmp = head;Node runner,prev;
+		int val;
+		while(tmp!=null){
+			val=tmp.data;
+			prev=tmp;
+			runner = tmp.next;
+			while(runner!=null){
+				if(runner.data==val){
+					//delete runner
+					prev.next=runner.next;
+				}
+				prev=tmp;
+				runner =runner.next;
+			}
+		}
+	}
+	public static void main(String[] args) {
+		LinkedList l1= new LinkedList();
+		l1.append(1);
+		l1.append(2);
+		l1.append(1);
+		l1.print();
+//		l1.print();
+//		l1.delete(1);
+//		l1.print();
+		l1.removeDups();
+		l1.print();
+		
+	}
+
+}

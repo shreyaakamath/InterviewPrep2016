@@ -1,0 +1,248 @@
+package cracking.the.coding.interview;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * 2.1) remove dups from unsorted LL 
+ * @author shreyakamath
+ *
+ */
+class Node{
+	int data;
+	Node next;
+	
+	Node(int n){
+		data=n;
+	}
+}
+public class LinkedList {
+	Node head;
+	
+	void append (int val){
+		 Node n = new Node(val);
+		 if(head==null)head=n;
+		 else{
+			 n.next=head;head=n;
+		 }
+	}
+	
+	void delete(int val){
+		if(head==null) return;
+		Node tmp=head;
+		Node prev =null;
+		while(tmp!=null){
+			if(tmp.data==val){
+				if(prev!=null){
+				prev.next=tmp.next;
+				}
+				else {
+					head=head.next;
+				}
+				break;
+			}else{
+				prev=tmp;
+				tmp=tmp.next;
+			}
+		}
+	}
+	
+	void print(){
+		Node tmp = head;
+		while(tmp!=null){
+			System.out.print(tmp.data+" -> ");
+			tmp=tmp.next;
+		}
+		System.out.println();
+	}
+	
+	void removeDups(){
+		Set<Integer> set = new HashSet<Integer>();
+		Node tmp = head;
+		Node prev=null;
+		while(tmp!=null){
+			int val = tmp.data;
+			if(!set.add(val)){
+				//need to delete this node
+				if(prev!=null){
+					prev.next=tmp.next;
+				}else {
+						head=head.next;
+				}
+			}
+			prev=tmp;
+			tmp=tmp.next;
+		}
+	}
+	
+	void removeDupsNoBuffer(){
+		Node tmp = head;Node runner,prev;
+		int val;
+		while(tmp!=null){
+			val=tmp.data;
+			prev=tmp;
+			runner = tmp.next;
+			while(runner!=null){
+				if(runner.data==val){prev.next=runner.next;}
+				prev=runner;
+				runner =runner.next;
+			}
+			tmp=tmp.next;
+		}
+	}
+	/*uses extra space O(n)*/
+	void nthLast1(int n){
+		List<Integer> l1 = new ArrayList<Integer>();
+		int size=0;
+		Node tmp = head;
+		while(tmp!=null){
+			size=size+1;
+			l1.add(tmp.data);
+			tmp=tmp.next;
+		}
+		if(n>size) System.out.println("Incorrect n ");
+		else System.out.println(l1.get(size-n));
+	}
+	
+	void nthLast2(int n ){
+		Node p1=head;
+		Node p2=head;
+		for(int i=0;i<n;i++){
+			if(p2==null) {System.out.println("wrong n");return;}
+			p2=p2.next;
+		}
+		while(p2.next!=null){
+			p2=p2.next;
+			p1=p1.next;
+		}
+		System.out.println(p1.next.data);
+	}
+	
+	Node getNode(int val){
+		Node tmp=head;
+		while(tmp!=null){
+			if(tmp.data==val)break;
+			tmp=tmp.next;
+		}
+		return tmp;
+	}
+	/*not possible to delete the last element in this method.*/
+	void isolatedDelete(Node tmp){
+		if(tmp.next!=null){
+			tmp.data=tmp.next.data;
+			tmp.next=tmp.next.next;
+		}else{
+			tmp.data=0;
+			tmp.next=null;
+		}
+	}
+	
+	void addNums(LinkedList l1 , LinkedList l2){
+		int n1=0;int n2=0;
+		int num1=0;int num2=0;
+		Node tmp = l1.head;
+		while(tmp!=null){
+			num1+=Math.pow(10,n1)*tmp.data;
+			n1++;
+			tmp=tmp.next;
+		}
+		tmp=l2.head;
+		while(tmp!=null){
+			num2+=Math.pow(10,n2)*tmp.data;
+			n2++;
+			tmp=tmp.next;
+		}
+		int sum = num1+num2;
+		Node head = null;
+		Node tail = head;
+		int rem;
+		while(sum!=0){
+			rem = sum%10;
+			sum = sum/10;
+			Node t = new Node(rem);
+			if(head==null){
+				head= t;
+				tail =t;
+			}else{
+				tail.next=t;
+				tail=t;
+			}
+			
+		}
+		
+		tmp=head;
+		while(tmp!=null)
+			{System.out.print(tmp.data+" -> ");tmp=tmp.next;}
+	}
+	
+	/*A ptr at head . B ptr at head.next move B two nodes and move A one node. If they meet then there is a loop . if either becomes null then no loop
+	 * loop start point: 1)starting at the point where they met , increment B till they meet again this is the size of the loop
+	 * 2) then move both A,B to the head. then move B loopSz away from A. 
+	 * 3)move them forward one at a time. they will meet at the loop start point
+	 * Ref: http://stackoverflow.com/questions/10275587/finding-loop-in-a-singly-linked-list
+	 * */
+	void detectLoop(){
+		if(head==null) return;
+		Node a = head;
+		Node b = head.next;
+		while(a!=b && a!=null && b.next!=null){
+			a=a.next;
+			b=b.next.next;
+		}
+		if(a==b){
+			System.out.println("yes loop exists");
+			int loopSz=0;
+			b=b.next;
+			while(a!=b){
+				loopSz++;
+				b=b.next;
+			}
+			a=head;b=head;
+			for(int i=0;i<loopSz;i++)
+				b=b.next;
+			while(a!=b){
+				a=a.next;b=b.next;
+			}
+			System.out.println("meeting point is "+a.data);
+		}
+		else System.out.println("no loop");
+	}
+	void makeLoop(){
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		Node n6 = new Node(6);
+		Node n7 = new Node(7);
+		Node n8 = new Node(8);
+		head=n1;
+		n1.next=n2;
+		n2.next=n3;
+		n3.next=n4;
+		n4.next=n5;
+		n5.next=n6;
+		n6.next=n7;
+		n7.next=n8;
+		n8.next=n3;
+	}
+	public static void main(String[] args) {
+		LinkedList l1= new LinkedList();
+		l1.makeLoop();
+		l1.detectLoop();
+//		l1.append(5);
+//		l1.append(1);
+//		l1.append(3);
+		
+//		l1.print();
+//		l1.delete(1);
+//		l1.removeDupsNoBuffer();
+//		l1.nthLast2(4);
+//		l1.isolatedDelete(l1.getNode(5));
+//		l1.print();
+//		l1.addNums(l1,l2);
+	}
+
+}

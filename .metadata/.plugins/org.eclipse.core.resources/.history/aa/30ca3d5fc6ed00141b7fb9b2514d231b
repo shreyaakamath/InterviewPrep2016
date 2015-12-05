@@ -1,0 +1,17 @@
+package spoj.most.solved.probs;
+
+import java.util.Scanner;
+
+/*
+ * http://www.spoj.com/problems/ACPC10A/
+ */
+
+public class WhatNext {
+
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+		
+	}
+
+}

@@ -1,0 +1,33 @@
+What does the code do ? Looks like it is reading an infinite stream from a file . the stream represents a 9*9 grid. The purpose of the program is to generate 2 solutions for each input
+Do the below in an infinite loop {
+
+Creating a Grid object with the values from the reader:
+	-> loop till 81 positions of the grid have been filled. return
+	-> if a negative number occurs in the stream , then terminate and return null
+	-> if '#' character is present in the stream , 	then ignore all characters newline or carriage return
+	-> If character is between 1-9 , convert to int and store in array cells, colsSet, rowSet, subgridSet
+	-> if character is "." or "0" consider that a hole or empty spot.
+	
+Solve the grid:
+	->fill all empty positions with ones by recursively calling solve.Once all positions are filled , clear the locations filled
+	->now start filling in 2,3,4, ... 9 
+	->this method gets two solutions
+	
+Print the 2 solution in the below format:
+	---------------------
+	|x x x| x x  x| x x x|
+	|x x x| x x  x| x x x|
+	|x x x| x x  x| x x x|
+	----------------------
+	|x x x| x x  x| x x x|
+	|x x x| x x  x| x x x|
+	|x x x| x x  x| x x x|
+	---------------------
+	|x x x| x x  x| x x x|
+	|x x x| x x  x| x x x|
+	|x x x| x x  x| x x x|
+	----------------------
+}
+	
+	
+ 

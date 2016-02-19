@@ -40,12 +40,15 @@ public class LcaBst {
 		else if(a>=val && b<val){return n1;}
 		return n1;
 	}
+	
+
 	public static void main(String[] args) {
 		LcaBst t1 = new LcaBst();
 		t1.generateBst();
 		BstCommonOperations.print(t1.root);
 		TreeNode lca=t1.lca(t1.root,20,70);
 		System.out.println(lca.val);
+		
 	}
 
 }

@@ -119,7 +119,7 @@ public class PreorderConstruct {
 //		}
 		preorder.add(10);preorder.add(5);preorder.add(1);preorder.add(7);preorder.add(40);preorder.add(50);
 		
-		/*construct tree with preorder. extra space allowed.*/
+		/*construct BST  with only preorder given. extra space allowed.*/
 		List<Integer> inorder = new ArrayList<Integer>(preorder);
 		Collections.sort(inorder);
 		TreeNode root=new TreeNode();

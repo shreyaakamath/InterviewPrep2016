@@ -1,5 +1,5 @@
 package linked.list.operations;
-class Node{
+public class Node{
  int val;
  Node nxt;
  boolean visited;

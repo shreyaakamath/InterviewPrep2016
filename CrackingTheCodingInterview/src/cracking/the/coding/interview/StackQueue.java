@@ -2,19 +2,25 @@ package cracking.the.coding.interview;
 
 class Stack{
 	Node head;
+	int min;
 	
 	void push(int data){
 		Node n = new Node(data);
-		if(head==null) head=n;
+		if(head==null){ head=n;min=data;}
 		else{
 			n.next=head;head=n;
+			if(data<min) min=data;
 		}
 	}
-	
+	int min(){
+		return min;
+	}
 	int pop(){
-		if(head==null) return 0;
+		if(head==null) {min=0;return 0;}
 		int n = head.data;
 		head=head.next;
+		if(min==n){
+		}
 		return n;
 	}
 	
@@ -55,13 +61,15 @@ class Queue{
 	}
 }
 public class StackQueue {
+	
 	static void stackTest(){
 		Stack s = new Stack();
 		s.push(1);s.push(2);s.push(3);
-		s.print();
-		System.out.println();
-		s.pop();s.pop();
-		s.print();
+//		s.print();
+//		System.out.println();
+//		s.pop();s.pop();
+//		s.print();
+		System.out.println(s.min());
 	}
 	
 	static void qTest(){
@@ -75,6 +83,7 @@ public class StackQueue {
 		q.print();
 	}
 	public static void main(String[] args) {
+		stackTest();
 	}
 
 }
